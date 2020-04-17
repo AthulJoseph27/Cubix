@@ -1,0 +1,6793 @@
+import java.io.*;
+class CUBIX_FINAL
+{
+  static String s="",s1="    ",s2="",s5="",sy="",sc1,sc2,temps="";
+  static int i,j,z,k=0,v=0,len1,len2,temp=0,to_avoid_infinite_loop=0,outer_loop = 0;
+ static char t,c,b,d,h;
+ static boolean caseS = true ,caseO = true;
+  static char a[][]={{' ',' ',' ','Y','Y','Y',' ',' ',' '},
+                 {' ',' ',' ','Y','Y','Y',' ',' ',' '},
+                 {' ',' ',' ','Y','Y','Y',' ',' ',' '},
+                 {'B','B','B','R','R','R','G','G','G'},
+                 {'B','B','B','R','R','R','G','G','G'},
+                 {'B','B','B','R','R','R','G','G','G'},               
+                 {' ',' ',' ','W','W','W',' ',' ',' '},
+                 {' ',' ',' ','W','W','W',' ',' ',' '},
+                 {' ',' ',' ','W','W','W',' ',' ',' '},
+                 {' ',' ',' ','O','O','O',' ',' ',' '},
+                 {' ',' ',' ','O','O','O',' ',' ',' '},
+                 {' ',' ',' ','O','O','O',' ',' ',' '}};
+
+public static void main(String[] args)throws IOException
+{
+    BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+    char p;
+    int k1=0;
+     String shuffle="";
+     System.out.println("ENTER SHUFFLE ALGORITHIM");
+     shuffle=br.readLine();
+     for(i=0;i<shuffle.length();i++)
+            {
+                if(shuffle.charAt(i)=='R')
+                {
+                    v=0;
+                    R();
+                }
+                 if(shuffle.charAt(i)=='U')
+                {
+                    v=0;
+                    U();
+                }
+                 if(shuffle.charAt(i)=='D')
+                {
+                    v=0;
+                    D();
+                }
+                 if(shuffle.charAt(i)=='B')
+                {
+                    v=0;
+                    B();
+                }
+                 if(shuffle.charAt(i)=='L')
+                {
+                    v=0;
+                    L();
+                }
+                 if(shuffle.charAt(i)=='F')
+                {
+                    v=0;
+                    FA();
+                }
+                 if(shuffle.charAt(i)=='f')
+                {
+                    v=0;
+                    Fr();
+                }
+                 if(shuffle.charAt(i)=='r')
+                {
+                    v=0;
+                    Rr();
+                }
+                 if(shuffle.charAt(i)=='u')
+                {
+                    v=0;
+                    Ur();
+                }
+                 if(shuffle.charAt(i)=='d')
+                {
+                    v=0;
+                    Dr();
+                }
+                 if(shuffle.charAt(i)=='b')
+                {
+                    v=0;
+                    Br();
+                }
+                 if(shuffle.charAt(i)=='l')
+                {
+                    v=0;
+                    Lr();
+                }
+            }
+            v++;
+             SOLVE();
+             System.out.println("BEGIN.CROSS    "+(s.length()-temp));
+             temp = s.length();
+             System.out.println("^^^^^^^^^^^^^^^^^^^^^^CROSS^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            SOLVE2();
+            System.out.println("BEGIN.WHITE FACE   "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^WHITE FACE^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            SOLVE3();
+            System.out.println("BEGIN.MIDDLE LAYER    "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^MIDDLE LAYER^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            TOP_CROSS();
+            System.out.println("BEGIN.TOP_CROSS    "+(s.length()-temp));
+            temp = s.length();
+             System.out.println("^^^^^^^^^^^^^TOP_CROSS^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            ORIENTATION();
+            System.out.println("BEGIN.ORIENTATION    "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^ORIENTATION ^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            PERMUTATION();
+            System.out.println("BEGIN.PERMUTATION    "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^PERMUTATION ^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            CORRECT_EDGES();
+            sc1=s5;
+
+              for(i=0;i<s5.length();i++)
+        {
+            if(s5.charAt(i)=='\''||s5.charAt(i)==' ')
+            k1++;
+    }
+            len1=s5.length()-k1;
+            k1=0;
+            s5="";
+            v=0;
+                 for(i=0;i<shuffle.length();i++)
+            {
+                if(shuffle.charAt(i)=='R')
+                {
+                    v=0;
+                    R();
+                }
+                 if(shuffle.charAt(i)=='U')
+                {
+                    v=0;
+                    U();
+                }
+                 if(shuffle.charAt(i)=='D')
+                {
+                    v=0;
+                    D();
+                }
+                 if(shuffle.charAt(i)=='B')
+                {
+                    v=0;
+                    B();
+                }
+                 if(shuffle.charAt(i)=='L')
+                {
+                    v=0;
+                    L();
+                }
+                 if(shuffle.charAt(i)=='F')
+                {
+                    v=0;
+                    FA();
+                }
+                 if(shuffle.charAt(i)=='f')
+                {
+                    v=0;
+                    Fr();
+                }
+                 if(shuffle.charAt(i)=='r')
+                {
+                    v=0;
+                    Rr();
+                }
+                 if(shuffle.charAt(i)=='u')
+                {
+                    v=0;
+                    Ur();
+                }
+                 if(shuffle.charAt(i)=='d')
+                {
+                    v=0;
+                    Dr();
+                }
+                 if(shuffle.charAt(i)=='b')
+                {
+                    v=0;
+                    Br();
+                }
+                 if(shuffle.charAt(i)=='l')
+                {
+                    v=0;
+                    Lr();
+                }
+            }
+            temp=0;
+            shuffle="";
+            v++;
+            SOLVE();
+            System.out.println("CROSS    "+s.length());
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^CROSS^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            SOLVEF2L();
+            System.out.println("F2L    "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^F2L^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            SOLVE();
+            System.out.println("CROSS    "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^CROSS^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            SOLVE2();
+            System.out.println("WHITE FACE   "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^WHITE FACE^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            SOLVE3();   
+            System.out.println("MIDDLE LAYER    "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^MIDDLE LAYER^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            ADV_OLL();
+            System.out.println("ADV_OLL    "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^ADV_OLL^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            TOP_CROSS();
+            System.out.println("^^^^^^^^^^^^^TOP_CROSS^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            System.out.println("TOP_CROSS    "+(s.length()-temp));
+            temp = s.length();
+            
+            ORIENTATION();
+            System.out.println("ORIENTATION    "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^ORIENTATION ^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            PERMUTATION();
+            System.out.println("PERMUTATION    "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^PERMUTATION ^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            CORRECT_EDGES();
+            System.out.println("CORRECT_EDGES    "+(s.length()-temp));
+            temp = s.length();
+            System.out.println("^^^^^^^^^^^^^^^^CORRECT_EDGES^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+                for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            sc2=s5;
+           for(i=0;i<s5.length();i++)
+            {
+            if(s5.charAt(i)=='\''|| s5.charAt(i)==' ')
+            k1++;
+           }
+            len2=s5.length()-k1;
+            k1=0;
+            s5="";
+            v=0;
+            System.out.println("CUBE SOLVED................!!!!!!!!");
+            System.out.println("P1;     "+len1);
+            System.out.println("P2;     "+len2);
+            if(len1>len2)
+            {
+            System.out.println(sc2);
+            System.out.println("SOLUTION LENGTH;     "+len2);
+        }
+            else
+            {
+            System.out.println(sc2);
+            System.out.println("SOLUTION LENGTH;     "+len2);
+                    }
+                    len1=0;
+                    len2=0;
+                    s5="";
+        }
+        
+public static  void SOLVEF2L()
+    {
+        for(i=0;i<24;i++)
+        {
+            placer();
+            //WGR
+             
+
+while(caseO&&outer_loop <=5)
+{
+if(a[3][5]=='W'&&a[3][6]=='G')
+{
+    caseO = false;
+    if(a[4][5]=='R'&&a[4][6]=='G')
+    {
+        Ur();
+        R();
+        Ur();
+        Rr();
+        U();
+        U();
+        R();
+        Ur();
+        Rr();
+    }
+    if(a[4][5]=='G'&&a[4][6]=='R')
+    {
+        Ur();
+        R();
+        U();
+        Rr();
+        U();
+        Fr();
+        Ur();
+        FA();
+    }
+    if(a[3][4]=='R'&&a[2][4]=='G')
+    {
+        U();
+        Fr();
+        U();
+        FA();
+        Ur();
+        Fr();
+        Ur();
+        FA();
+        
+    }
+    if(a[3][1]=='R'&&a[1][3]=='G')
+    {
+        Fr();
+        Ur();
+        FA();
+    }
+    if(a[0][4]=='G'&&a[11][4]=='R')
+    {
+        U();
+        Fr();
+        Ur();
+        FA();
+        Ur();
+        Fr();
+        Ur();
+        FA();
+    }
+    if(a[3][7]=='R'&&a[1][5]=='G')
+    {
+        FA();
+        U();
+        U();
+        FA();
+        FA();
+        Ur();
+        FA();
+        FA();
+        Ur();
+        Fr();
+    }
+    if(a[3][4]=='G'&&a[2][4]=='R')
+    {
+        Fr();
+        U();
+        FA();
+        U();
+        U();
+        R();
+        U();
+        Rr();
+        
+    }
+    if(a[1][3]=='R'&&a[3][1]=='G')
+    {
+        Ur();
+        R();
+        U();
+        U();
+        Rr();
+        U();
+        U();
+        R();
+        Ur();
+        Rr();
+    }
+     if(a[0][4]=='R'&&a[11][4]=='G')
+    {
+        Ur();
+        R();
+        U();
+        Rr();
+        Ur();
+        R();
+        Ur();
+        Ur();
+        Rr();
+    }
+     if(a[3][7]=='G'&&a[1][5]=='R')
+    {
+        U();
+        R();
+        Ur();
+        Rr();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+//
+while(caseO && outer_loop <=5)
+{
+
+if(a[3][5]=='R'&&a[3][6]=='W')
+{
+    caseO = false;
+    if(a[4][5]=='R'&&a[4][6]=='G')
+    {
+        Ur();
+        R();
+        Ur();
+        Ur();
+        Rr();
+        U();
+        R();
+        U();
+        Rr();
+    }
+    if(a[4][5]=='G'&&a[4][6]=='R')
+    {
+        U();
+        Fr();
+        Ur();
+        FA();
+        Ur();
+        R();
+        U();
+        Rr();
+    }
+    if(a[3][4]=='R'&&a[2][4]=='G')
+    {
+        Ur();
+        Fr();
+        U();
+        FA();
+        
+    }
+    if(a[3][1]=='R'&&a[1][3]=='G')
+    {
+        U();
+        Fr();
+        Ur();
+        FA();
+        U();
+        U();
+        Fr();
+        U();
+        FA();
+    }
+    if(a[0][4]=='G'&&a[11][4]=='R')
+    {
+        U();
+        Fr();
+        U();
+        U();
+        FA();
+        Ur();
+        Ur();
+        Fr();
+        U();
+        FA();
+    }
+    if(a[3][7]=='R'&&a[1][5]=='G')
+    {
+        R();
+        Ur();
+        Rr();
+        U();
+        U();
+        Fr();
+        Ur();
+        FA();
+    }
+    if(a[3][4]=='G'&&a[2][4]=='R')
+    {
+        R();
+        Ur();
+        Rr();
+        U();
+        R();
+        Ur();
+        Rr();
+        U();
+        U();
+        R();
+        Ur();
+        Rr();
+    }
+    if(a[1][3]=='R'&&a[3][1]=='G')
+    {
+        Ur();
+        R();
+        U();
+        Rr();
+        U();
+        R();
+        U();
+        Rr();
+    }
+     if(a[0][4]=='R'&&a[11][4]=='G')
+    {
+        R();
+        U();
+        Rr();
+    }
+     if(a[3][7]=='G'&&a[1][5]=='R')
+    {
+        Ur();
+        R();
+        Ur();
+        Rr();
+        U();
+        R();
+        U();
+        Rr();
+    }
+}
+
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+//
+
+while(caseO && outer_loop <=5)
+{
+if(a[2][5]=='W'&&a[3][6]=='R')
+{
+    caseO = false;
+    if(a[4][5]=='R'&&a[4][6]=='G')
+    {
+        R();
+        U();
+        Rr();
+        Ur();
+        R();
+        U();
+        Rr();
+        Ur();
+        R();
+        U();
+        Rr();
+    }
+    if(a[4][5]=='G'&&a[4][6]=='R')
+    {
+        R();
+        Ur();
+        Rr();
+        U();
+        Fr();
+        U();
+        U();
+        FA();
+    }
+    if(a[3][4]=='R'&&a[2][4]=='G')
+    {
+       Fr();
+       U();
+       U();
+       FA();
+       U();
+       Fr();
+       Ur();
+       FA();
+    }
+    if(a[3][1]=='R'&&a[1][3]=='G')
+    {
+        Ur();
+        Fr();
+        Ur();
+        Ur();
+        FA();
+        Ur();
+        Fr();
+        U();
+        FA();
+    }
+    if(a[0][4]=='G'&&a[11][4]=='R')
+    {
+        Fr();
+        U();
+        FA();
+        U();
+        U();
+        Fr();
+        Ur();
+        FA();
+    }
+    if(a[3][7]=='R'&&a[1][5]=='G')
+    {
+        FA();
+        U();
+        R();
+        Ur();
+        Rr();
+        Fr();
+        R();
+        Ur();
+        Rr();
+    }
+    if(a[3][4]=='G'&&a[2][4]=='R')
+    {
+        U();
+        U();
+        R();
+        R();
+        Ur();
+        Ur();
+        Rr();
+        Ur();
+        R();
+        Ur();
+        Rr();
+        Rr();
+    }
+    if(a[1][3]=='R'&&a[3][1]=='G')
+    {
+        R();
+        Ur();
+        Rr();
+        U();
+        U();
+        R();
+        U();
+        Rr();
+    }
+     if(a[0][4]=='R'&&a[11][4]=='G')
+    {
+        U();
+        R();
+        U();
+        U();
+        Rr();
+        U();
+        R();
+        Ur();
+        Rr();
+    }
+     if(a[3][7]=='G'&&a[1][5]=='R')
+    {
+        R();
+        Ur();
+        Ur();
+        Rr();
+        Ur();
+        R();
+        U();
+        Rr();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+if(a[6][5]=='W'&&a[5][5]=='R'&&a[4][5]=='G'&&a[4][6]=='R')
+{
+    R();
+    Ur();
+    Rr();
+    U();
+    Fr();
+    U();
+    U();
+    FA();
+    U();
+    U();
+    Fr();
+    U();
+    FA();
+}
+//
+while(caseO && outer_loop <=5)
+{
+
+if(a[5][5]=='G'&&a[5][6]=='W')
+{
+    caseO = false;
+    while(caseS && to_avoid_infinite_loop <=5)
+    {
+if(a[4][5]=='R'&&a[4][6]=='G')
+{
+    R();
+    Ur();
+    Rr();
+    U();
+    R();
+    U();
+    U();
+    Rr();
+    U();
+    R();
+    Ur();
+    Rr();
+    caseS = false;
+}
+if(a[4][5]=='G'&&a[4][6]=='R')
+{
+    R();
+    U();
+    FA();
+    R();
+    U();
+    Rr();
+    Ur();
+    Fr();
+    Rr();
+    caseS = false;
+}
+if(a[3][4]=='R'&&a[2][4]=='G')
+{
+    Fr();
+    U();
+    FA();
+    Ur();
+    Fr();
+    U();
+    FA();
+    caseS = false;
+}
+if(a[3][7]=='G'&&a[1][5]=='R')
+{
+    R();
+    U();
+    Rr();
+    Ur();
+    R();
+    U();
+    Rr();
+    caseS = false;
+}
+U();
+to_avoid_infinite_loop++;
+}
+to_avoid_infinite_loop = 0;
+caseS = true;
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+//
+while(caseO && outer_loop <=5)
+{
+
+if(a[6][5]=='G'&&a[5][5]=='W')
+{
+    caseO = false;
+    while(caseS && to_avoid_infinite_loop <=5)
+    {
+if(a[4][5]=='R'&&a[4][6]=='G')
+{
+    R();
+    U();
+    Rr();
+    Ur();
+    R();
+    U();
+    U();
+    Rr();
+    Ur();
+    R();
+    U();
+    Rr();
+    caseS = false;
+}
+if(a[4][5]=='G'&&a[4][6]=='R')
+{
+    R();
+    FA();
+    U();
+    R();
+    Ur();
+    Rr();
+    Fr();
+    Ur();
+    Rr();
+    caseS = false;
+}
+if(a[3][4]=='R'&&a[2][4]=='G')
+{
+    Fr();
+    Ur();
+    FA();
+    U();
+    Fr();
+    Ur();
+    FA();
+    caseS = false;
+}
+if(a[3][7]=='G'&&a[1][5]=='R')
+{
+    R();
+    Ur();
+    Rr();
+    U();
+    R();
+    Ur();
+    Rr();
+    caseS = false;
+}
+U();
+to_avoid_infinite_loop++;
+}
+to_avoid_infinite_loop = 0;
+caseS = true;
+}
+U();
+outer_loop ++;
+}
+outer_loop = 0;
+caseO = true;
+
+//#######################################################CHECKED TILL HERE#############################################
+//******************************************************WRB**************************************************
+//WBR
+while(caseO && outer_loop <=5)
+{
+if(a[3][2]=='W'&&a[3][3]=='R')
+{
+    caseO = false;
+    if(a[4][2]=='B'&&a[4][3]=='R')
+    {
+        Ur();
+        Lr();
+        Ur();
+        L();
+        U();
+        U();
+        Lr();
+        Ur();
+        L();
+    }
+    if(a[4][2]=='R'&&a[4][3]=='B')
+    {
+        Ur();
+        Lr();
+        U();
+        L();
+        U();
+        U();
+        Lr();
+        Ur();
+        L();
+        U();
+        Fr();
+        L();
+        FA();
+        Lr();
+    }
+    if(a[3][1]=='B'&&a[1][3]=='R')
+    {
+        U();
+        Lr();
+        U();
+        L();
+        Ur();
+        Lr();
+        Ur();
+        L();
+    }
+    if(a[11][4]=='B'&&a[0][4]=='R')
+    {
+        Lr();
+        Ur();
+        L();
+    }
+    if(a[3][7]=='B'&&a[1][5]=='R')
+    {
+        U();
+        Lr();
+        Ur();
+        L();
+        Ur();
+        Lr();
+        Ur();
+        L();
+    }
+    if(a[3][4]=='R'&&a[2][4]=='B')
+    {
+        L();
+        U();
+        U();
+        L();
+        L();
+        Ur();
+        L();
+        L();
+        Ur();
+        Lr();
+    }
+    if(a[3][1]=='R'&&a[1][3]=='B')
+    {
+        Lr();
+        U();
+        L();
+        U();
+        U();
+        FA();
+        U();
+        Fr();
+        
+    }
+    if(a[0][4]=='B'&&a[11][4]=='R')
+    {
+        Ur();
+        FA();
+        U();
+        U();
+        Fr();
+        U();
+        U();
+        FA();
+        Ur();
+        Fr();
+    }
+     if(a[1][5]=='B'&&a[3][7]=='R')
+    {
+        Ur();
+        FA();
+        U();
+        Fr();
+        Ur();
+        FA();
+        Ur();
+        Ur();
+        Fr();
+    }
+     if(a[2][4]=='B'&&a[3][4]=='R')
+    {
+        U();
+        FA();
+        Ur();
+        Fr();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+//LAYER********************************************************************************************************************
+//
+while(caseO && outer_loop <=5)
+{
+if(a[3][2]=='B'&&a[3][3]=='W')
+{
+    
+    caseO = false;
+    if(a[4][2]=='B'&&a[4][3]=='R')
+    {
+        Ur();
+        FA();
+        Ur();
+        Ur();
+        Fr();
+        U();
+        FA();
+        U();
+        Fr();
+    }
+    if(a[4][3]=='B'&&a[4][2]=='R')
+    {
+        U();
+        Lr();
+        Ur();
+        L();
+        Ur();
+        FA();
+        U();
+        Fr();
+    }
+    if(a[3][1]=='B'&&a[1][3]=='R')
+    {
+        Ur();
+        Lr();
+        U();
+        L();
+        
+    }
+    if(a[0][4]=='R'&&a[11][4]=='B')
+    {
+        U();
+        Lr();
+        Ur();
+        L();
+        U();
+        U();
+        Lr();
+        U();
+        L();
+    }
+    if(a[3][7]=='B'&&a[1][5]=='R')
+    {
+        U();
+        Lr();
+        U();
+        U();
+        L();
+        Ur();
+        Ur();
+        Lr();
+        U();
+        L();
+    }
+    if(a[3][4]=='B'&&a[2][4]=='R')
+    {
+        FA();
+        Ur();
+        Fr();
+        U();
+        U();
+        Lr();
+        Ur();
+        L();
+    }
+    if(a[1][3]=='B'&&a[3][1]=='R')
+    {
+        FA();
+        Ur();
+        Fr();
+        U();
+        FA();
+        Ur();
+        Fr();
+        U();
+        U();
+        FA();
+        Ur();
+        Fr();
+    }
+    if(a[11][4]=='R'&&a[0][4]=='B')
+    {
+        Ur();
+        FA();
+        U();
+        Fr();
+        U();
+        FA();
+        U();
+        Fr();
+    }
+     if(a[1][5]=='B'&&a[3][7]=='R')
+    {
+        FA();
+        U();
+        Fr();
+    }
+     if(a[3][4]=='R'&&a[2][4]=='B')
+    {
+        Ur();
+        FA();
+        Ur();
+        Fr();
+        U();
+        FA();
+        U();
+        Fr();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+//GRW
+while(caseO && outer_loop <=5)
+{
+if(a[2][3]=='W'&&a[3][3]=='B')
+{
+    if(a[4][2]=='B'&&a[4][3]=='R')
+    {
+        FA();
+        U();
+        Fr();
+        Ur();
+        FA();
+        U();
+        Fr();
+        Ur();
+        FA();
+        U();
+        Fr();
+    }
+    if(a[4][3]=='B'&&a[4][2]=='R')
+    {
+        FA();
+        Ur();
+        Fr();
+        U();
+        Lr();
+        U();
+        L();
+    }
+    if(a[3][1]=='B'&&a[1][3]=='R')
+    {
+       Lr();
+       U();
+       U();
+       L();
+       U();
+       Lr();
+       Ur();
+       L();
+    }
+    if(a[11][4]=='B'&&a[0][4]=='R')
+    {
+        Ur();
+        Lr();
+        Ur();
+        Ur();
+        L();
+        Ur();
+        Lr();
+        U();
+        L();
+    }
+    if(a[3][7]=='B'&&a[1][5]=='R')
+    {
+        Lr();
+        U();
+        L();
+        U();
+        U();
+        Lr();
+        Ur();
+        L();
+    }
+    if(a[3][4]=='B'&&a[2][4]=='R')
+    {
+        L();
+        U();
+        FA();
+        Ur();
+        Fr();
+        Lr();
+        FA();
+        Ur();
+        Fr();
+    }
+    if(a[3][1]=='R'&&a[1][3]=='B')
+    {
+        U();
+        FA();
+        Ur();
+        Fr();
+        Ur();
+        FA();
+        Ur();
+        Fr();
+        U();
+        FA();
+        Ur();
+        Fr();
+    }
+    if(a[0][4]=='B'&&a[11][4]=='R')
+    {
+        FA();
+        Ur();
+        Fr();
+        U();
+        U();
+        FA();
+        U();
+        Fr();
+    }
+     if(a[3][7]=='R'&&a[1][5]=='B')
+    {
+        U();
+        FA();
+        U();
+        U();
+        Fr();
+        U();
+        FA();
+        Ur();
+        Fr();
+    }
+     if(a[3][4]=='R'&&a[2][4]=='B')
+    {
+        FA();
+        Ur();
+        Ur();
+        Fr();
+        Ur();
+        FA();
+        U();
+        Fr();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+if(a[6][3]=='W'&&a[5][3]=='R'&&a[4][3]=='B'&&a[4][2]=='R')
+{
+    FA();
+    Ur();
+    Fr();
+    U();
+    Lr();
+    U();
+    U();
+    L();
+    U();
+    U();
+    Lr();
+    U();
+    L();
+}
+//
+while(caseO && outer_loop <=5)
+{
+if(a[5][2]=='R'&&a[5][3]=='W')
+{
+    caseO = false;
+if(a[4][3]=='R'&&a[4][2]=='B')
+{
+    FA();
+    Ur();
+    Fr();
+    U();
+    FA();
+    U();
+    U();
+    Fr();
+    U();
+    FA();
+    Ur();
+    Fr();
+}
+if(a[4][3]=='B'&&a[4][2]=='R')
+{
+    FA();
+    U();
+    L();
+    FA();
+    U();
+    Fr();
+    Ur();
+    Lr();
+    Fr();
+}
+if(a[1][3]=='R'&&a[3][1]=='B')
+{
+    Lr();
+    U();
+    L();
+    Ur();
+    Lr();
+    U();
+    L();
+}
+if(a[2][4]=='B'&&a[3][4]=='R')
+{
+    FA();
+    U();
+    Fr();
+    Ur();
+    FA();
+    U();
+    Fr();
+}
+}
+//
+if(a[5][3]=='B'&&a[5][2]=='W')
+{
+    caseO = false;
+    while(caseS && to_avoid_infinite_loop<=5)
+    {
+if(a[4][3]=='R'&&a[4][2]=='B')
+{
+    FA();
+    U();
+    Fr();
+    Ur();
+    FA();
+    U();
+    U();
+    Fr();
+    Ur();
+    FA();
+    U();
+    Fr();
+    caseS = false;
+}
+if(a[4][3]=='B'&&a[4][2]=='R')
+{
+    FA();
+    L();
+    U();
+    FA();
+    Ur();
+    Fr();
+    Lr();
+    Ur();
+    Fr();
+    caseS = false;
+}
+if(a[3][1]=='B'&&a[1][3]=='R')
+{
+    Lr();
+    Ur();
+    L();
+    U();
+    Lr();
+    Ur();
+    L();
+    caseS = false;
+}
+if(a[3][4]=='R'&&a[2][4]=='B')
+{
+    FA();
+    Ur();
+    Fr();
+    U();
+    FA();
+    Ur();
+    Fr();
+    caseS = false;
+}
+U();
+to_avoid_infinite_loop++;
+}
+to_avoid_infinite_loop = 0;
+caseS = true;
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+while(caseO&&outer_loop <=5)
+{
+if(a[3][8]=='W'&&a[0][5]=='G')
+{
+    caseO = false;
+    if(a[11][4]=='O'&&a[0][4]=='G')
+    {
+        Br();
+        R();
+        B();
+        Rr();
+    }
+    if(a[11][4]=='G'&&a[0][4]=='O')
+    {
+       R();
+       U();
+       U();
+       R();
+       R();
+       Ur();
+       R();
+       R();
+       Ur();
+       Rr();
+    }
+    if(a[3][4]=='O'&&a[2][4]=='G')
+    {
+        Ur();
+        B();
+        U();
+        U();
+        Br();
+        U();
+        Br();
+        R();
+        B();
+        Rr();
+        
+    }
+    if(a[3][4]=='G'&&a[2][4]=='O')
+    {
+        Rr();
+        Ur();
+        R();
+
+    }
+    if(a[1][3]=='G'&&a[3][1]=='O')
+    {
+        Ur();
+        B();
+        U();
+        Br();
+        U();
+        Br();
+        R();
+        B();
+        Rr();
+    }
+    if(a[1][3]=='O'&&a[3][1]=='G')
+    {
+        Ur();
+        Br();
+        Ur();
+        B();
+        U();
+        Rr();
+        Ur();
+        R();
+    }
+    if(a[4][8]=='G'&&a[10][5]=='O')
+    {
+        Ur();
+        B();
+        Ur();
+        Br();
+        U();
+        U();
+        B();
+        Ur();
+        Br();
+    }
+    if(a[4][8]=='O'&&a[10][5]=='G')
+    {
+        Ur();
+        B();
+        U();
+        Br();
+        U();
+        Rr();
+        Ur();
+        R();
+    }
+     if(a[3][7]=='G'&&a[1][5]=='O')
+    {
+        U();
+        Rr();
+        U();
+        R();
+        Ur();
+        Rr();
+        Ur();
+        R();
+    }
+     if(a[3][7]=='O'&&a[1][5]=='G')
+    {
+        Rr();
+        U();
+        R();
+        Ur();
+        Ur();
+        B();
+        U();
+        Br();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+//
+while(caseO && outer_loop <=5)
+{
+
+if(a[3][8]=='G'&&a[0][4]=='W')
+{
+    caseO = false;
+    if(a[11][4]=='O'&&a[0][4]=='G')
+    {
+        Ur();
+        B();
+        Ur();
+        Br();
+        U();
+        B();
+        U();
+        Br();
+    }
+    if(a[11][4]=='G'&&a[0][4]=='O')
+    {
+       B();
+       Ur();
+       Br();
+       U();
+       U();
+       Rr();
+       Ur();
+       R();
+    }
+    if(a[3][4]=='O'&&a[2][4]=='G')
+    {
+        Ur();
+        B();
+        U();
+        Br();
+        U();
+        B();
+        U();
+        Br();
+        
+    }
+    if(a[3][4]=='G'&&a[2][4]=='O')
+    {
+        U();
+        Rr();
+        Ur();
+        R();
+        Ur();
+        R();
+        Br();
+        Rr();
+        B();
+    }
+    if(a[1][3]=='G'&&a[3][1]=='O')
+    {
+       B();
+       U();
+       Br();
+    }
+    if(a[1][3]=='O'&&a[3][1]=='G')
+    {
+        U();
+        Rr();
+        U();
+        U();
+        R();
+        Ur();
+        R();
+        Br();
+        R();
+        B();
+    }
+    if(a[4][8]=='G'&&a[10][5]=='O')
+    {
+        Ur();
+        B();
+        Ur();
+        Ur();
+        Br();
+        U();
+        B();
+        U();
+        Br();
+    }
+    if(a[4][8]=='O'&&a[10][5]=='G')
+    {
+       U();
+       Rr();
+       Ur();
+       R();
+       Ur();
+       B();
+       U();
+       Br();
+    }
+     if(a[3][7]=='G'&&a[1][5]=='O')
+    {
+        R();
+        Br();
+        Rr();
+        B();
+    }
+     if(a[3][7]=='O'&&a[1][5]=='G')
+    {
+        Br();
+        U();
+        U();
+        B();
+        B();
+        U();
+        Br();
+        Br();
+        U();
+        B();
+
+    }
+    }
+//GRW
+if(a[0][5]=='W'&&a[3][8]=='O')
+{
+   caseO = false;
+    if(a[11][4]=='O'&&a[0][4]=='G')
+    {
+        B();
+        Ur();
+        Ur();
+        Br();
+        U();
+        U();
+        B();
+        U();
+        Br();
+    }
+    if(a[11][4]=='G'&&a[0][4]=='O')
+    {
+       U();
+       U();
+       R();
+       R();
+       U();
+       U();
+       R();
+       U();
+       Rr();
+       U();
+       R();
+       R();
+    }
+    if(a[3][4]=='O'&&a[2][4]=='G')
+    {
+        B();
+        Ur();
+        Br();
+        U();
+        U();
+        B();
+        U();
+        Br();
+        
+    }
+    if(a[3][4]=='G'&&a[2][4]=='O')
+    {
+        Ur();
+        Rr();
+        U();
+        U();
+        R();
+        Ur();
+        Rr();
+        U();
+        R();
+    }
+    if(a[1][3]=='G'&&a[3][1]=='O')
+    {
+       U();
+       B();
+       U();
+       U();
+       Br();
+       U();
+       B();
+       Ur();
+       Br();
+    }
+    if(a[1][3]=='O'&&a[3][1]=='G')
+    {
+        Rr();
+        U();
+        R();
+        U();
+        U();
+        Rr();
+        Ur();
+        R();
+    }
+    if(a[4][8]=='G'&&a[10][5]=='O')
+    {
+        B();
+        U();
+        Br();
+        Ur();
+        B();
+        U();
+        Br();
+        Ur();
+        B();
+        U();
+        Br();
+    }
+    if(a[4][8]=='O'&&a[10][5]=='G')
+    {
+       B();
+       Ur();
+       Br();
+       U();
+       Rr();
+       U();
+       R();
+    }
+     if(a[3][7]=='G'&&a[1][5]=='O')
+    {
+        Rr();
+        U();
+        U();
+        R();
+        U();
+        Rr();
+        Ur();
+        R();
+    }
+     if(a[3][7]=='O'&&a[1][5]=='G')
+    {
+       U();
+       B();
+       Ur();
+       Br();
+       Ur();
+       B();
+       Ur();
+       Br();
+       U();
+       B();
+       Ur();
+       Br();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+if(a[8][5]=='W'&&a[5][8]=='G'&&a[10][5]=='G'&&a[4][8]=='O')
+{
+    B();
+    Ur();
+    Br();
+    U();
+    Rr();
+    U();
+    U();
+    R();
+    U();
+    U();
+    Rr();
+    U();
+    R();
+}
+//
+while(caseO && outer_loop <=5)
+{
+
+if(a[5][8]=='O'&&a[9][5]=='W')
+{
+    caseO = false;
+    while(caseS && to_avoid_infinite_loop <=5)
+    {
+if(a[10][5]=='O'&&a[4][8]=='G')
+{
+    B();
+    Ur();
+    Br();
+    U();
+    B();
+    U();
+    U();
+    Br();
+    U();
+    B();
+    Ur();
+    Br();
+    caseS = false;
+}
+if(a[10][5]=='G'&&a[4][8]=='O')
+{
+    B();
+    U();
+    R();
+    B();
+    U();
+    Br();
+    Ur();
+    Rr();
+    Br();
+    caseS = false;
+}
+if(a[0][4]=='O'&&a[11][4]=='G')
+{
+   B();
+   U();
+   Br();
+   Ur();
+   B();
+   U();
+   Br();
+    caseS = false;
+}
+if(a[3][7]=='G'&&a[1][5]=='O')
+{
+    R();
+    U();
+    Rr();
+    Ur();
+    R();
+    U();
+    Rr();
+    caseS = false;
+}
+U();
+to_avoid_infinite_loop++;
+}
+to_avoid_infinite_loop = 0;
+caseS = true;
+}
+outer_loop++;
+U();
+}
+
+outer_loop=0;
+caseO = true;
+while(caseO &&   outer_loop <= 5)
+{
+if(a[11][3]=='W'&&a[3][0]=='B')
+{
+    caseO = false;
+    if(a[4][0]=='B'&&a[10][3]=='O')
+    {
+        Ur();
+        L();
+        Ur();
+        Lr();
+        U();
+        U();
+        L();
+        Ur();
+        Lr();
+    }
+    if(a[4][0]=='O'&&a[10][3]=='B')
+    {
+        Ur();
+        L();
+        U();
+        Lr();
+        U();
+        Br();
+        Ur();
+        B();
+    }
+    if(a[11][4]=='O'&&a[0][4]=='B')
+    {
+        U();
+        Br();
+        U();
+        B();
+        Ur();
+        Br();
+        Ur();
+        B();
+        
+    }
+    if(a[3][7]=='O'&&a[1][5]=='B')
+    {
+        Br();
+        Ur();
+        B();
+    }
+    if(a[3][4]=='O'&&a[2][4]=='B')
+    {
+        U();
+        Br();
+        Ur();
+        B();
+        Ur();
+        Br();
+        Ur();
+        B();
+    }
+    if(a[3][1]=='O'&&a[1][3]=='B')
+    {
+        B();
+        U();
+        U();
+        B();
+        B();
+        Ur();
+        B();
+        B();
+        Ur();
+        Br();
+    }
+    if(a[11][4]=='O'&&a[0][4]=='B')
+    {
+        Br();
+        U();
+        B();
+        U();
+        U();
+        L();
+        U();
+        Lr();
+        
+    }
+    if(a[3][7]=='B'&&a[1][5]=='O')
+    {
+        Ur();
+        L();
+        U();
+        U();
+        Lr();
+        U();
+        U();
+        L();
+        Ur();
+        Lr();
+    }
+     if(a[3][4]=='B'&&a[2][4]=='O')
+    {
+        Ur();
+        L();
+        U();
+        Lr();
+        Ur();
+        L();
+        Ur();
+        Ur();
+        Lr();
+    }
+     if(a[3][1]=='B'&&a[1][3]=='O')
+    {
+        U();
+        L();
+        Ur();
+        Lr();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+
+
+
+while(caseO  &&   outer_loop <= 5)
+{
+if(a[11][5]=='W'&&a[3][8]=='G')
+{
+    caseO = false;
+    if(a[3][7]=='G'&&a[1][5]=='O')
+    {
+       R();
+       Br();
+       Rr();
+       B();
+    }
+    if(a[3][7]=='O'&&a[1][5]=='G')
+    {
+        Br();
+        U();
+        U();
+        B();
+        B();
+        U();
+        B();
+        B();
+        U();
+        B();
+    }
+    if(a[2][4]=='O'&&a[3][4]=='G')
+    {
+       U();
+       Rr();
+       Ur();
+       R();
+       Ur();
+       R();
+       Br();
+       Rr();
+       B();  
+    }
+    if(a[3][4]=='O'&&a[2][4]=='G')
+    {
+        U();
+        Rr();
+        U();
+        R();
+        Ur();
+        B();
+        U();
+        Br();
+    }
+    if(a[3][1]=='G'&&a[1][3]=='O')
+    {
+        U();
+        Rr();
+        U();
+        U();
+        R();
+        Ur();
+        R();
+        Br();
+        Rr();
+        B();
+    }
+    if(a[3][1]=='O'&&a[1][3]=='G')
+    {
+        B();
+        U();
+        Br();
+    }
+    if(a[10][5]=='O'&&a[4][8]=='G')
+    {
+       Ur();
+       B();
+       U();
+       U();
+       Br();
+       U();
+       B();
+       U();
+       Br();
+        
+    }
+    if(a[11][5]=='G'&&a[4][8]=='O')
+    {
+        U();
+        Rr();
+        Ur();
+        R();
+        Ur();
+        B();
+        U();
+        Br();
+        
+    }
+     if(a[0][4]=='O'&&a[11][4]=='G')
+    {
+        B();
+        Ur();
+        Br();
+        U();
+        U();
+        Rr();
+        Ur();
+        R();
+    }
+     if(a[0][4]=='G'&&a[11][4]=='O')
+    {
+       Ur();
+       B();
+       Ur();
+       Br();
+       U();
+       B();
+       U();
+       Br();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+
+
+
+
+
+//LWG
+
+while(caseO && outer_loop <=5)
+{
+if(a[0][3]=='B'&&a[3][0]=='W')
+{
+  for(j=0;j<=11;j++)
+         {
+             for(i=0;i<=8;i++)
+             System.out.print(a[j][i]);
+              System.out.println();
+            }
+    caseO = false;
+    if(a[4][0]=='B'&&a[10][3]=='O')
+    {
+        Ur();
+        L();
+        Ur();
+        Ur();
+        Lr();
+        U();
+        L();
+        U();
+        Lr();
+    }
+    if(a[4][0]=='O'&&a[10][3]=='B')
+    {
+        U();
+        Br();
+        Ur();
+        B();
+        Ur();
+        L();
+        U();
+        Lr();
+    }
+    if(a[11][4]=='O'&&a[0][4]=='B')
+    {
+        Ur();
+        Br();
+        U();
+        B();
+        
+    }
+    if(a[3][7]=='O'&&a[1][5]=='B')
+    {
+        U();
+        Br();
+        Ur();
+        B();
+        U();
+        U();
+        Br();
+        U();
+        B();
+    }
+    if(a[3][4]=='O'&&a[2][4]=='B')
+    {
+        U();
+        Br();
+        U();
+        U();
+        B();
+        Ur();
+        Ur();
+        Br();
+        U();
+        B();
+    }
+    if(a[3][1]=='O'&&a[1][3]=='B')
+    {
+        L();
+        Ur();
+        Lr();
+        U();
+        U();
+        Br();
+        Ur();
+        B();
+    }
+    if(a[11][4]=='O'&&a[0][4]=='B')
+    {
+        L();
+        Ur();
+        Lr();
+        U();
+        L();
+        Ur();
+        Lr();
+        U();
+        U();
+        L();
+        Ur();
+        Lr();
+    }
+    if(a[3][7]=='B'&&a[1][5]=='O')
+    {
+        Ur();
+        L();
+        U();
+        Lr();
+        U();
+        L();
+        U();
+        Lr();
+    }
+     if(a[3][4]=='B'&&a[2][4]=='O')
+    {
+        L();
+        U();
+        Lr();
+    }
+     if(a[3][1]=='B'&&a[1][3]=='O')
+    {
+        Ur();
+        L();
+        Ur();
+        Lr();
+        U();
+        L();
+        U();
+        Lr();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+//***************************************************HERE********************************
+
+while(caseO && outer_loop <=5)
+{
+
+if(a[0][3]=='W'&&a[3][0]=='O')
+{
+    caseO = false;
+    if(a[4][0]=='B'&&a[10][3]=='O')
+    {
+        L();
+        U();
+        Lr();
+        Ur();
+        L();
+        U();
+        Lr();
+        Ur();
+        L();
+        U();
+        Lr();
+    }
+    if(a[4][0]=='O'&&a[10][3]=='B')
+    {
+        L();
+        Ur();
+        Lr();
+        U();
+        Br();
+        U();
+        B();
+    }
+    if(a[11][4]=='O'&&a[0][4]=='B')
+    {
+       Br();
+       U();
+       U();
+       B();
+       U();
+       Br();
+       Ur();
+       B();
+    }
+    if(a[3][7]=='O'&&a[1][5]=='B')
+    {
+        Ur();
+        Br();
+        Ur();
+        Ur();
+        B();
+        Ur();
+        Br();
+        U();
+        B();
+    }
+    if(a[3][4]=='O'&&a[2][4]=='B')
+    {
+        Br();
+        U();
+        B();
+        U();
+        U();
+        Br();
+        Ur();
+        B();
+        U();
+        B();
+    }
+    if(a[3][1]=='O'&&a[1][3]=='B')
+    {
+        B();
+        U();
+        L();
+        Ur();
+        Lr();
+        Br();
+        L();
+        Ur();
+        Lr();
+    }
+    if(a[11][4]=='O'&&a[0][4]=='B')
+    {
+        U();
+        L();
+        Ur();
+        Lr();
+        Ur();
+        L();
+        Ur();
+        Lr();
+        U();
+        L();
+        Ur();
+        Lr();
+    }
+    if(a[3][7]=='B'&&a[1][5]=='O')
+    {
+        L();
+        Ur();
+        Lr();
+        U();
+        U();
+        L();
+        U();
+        Lr();
+    }
+     if(a[3][4]=='B'&&a[2][4]=='O')
+    {
+        U();
+        L();
+        U();
+        U();
+        Lr();
+        U();
+        L();
+        Ur();
+        Lr();
+    }
+     if(a[3][1]=='B'&&a[1][3]=='O')
+    {
+        L();
+        Ur();
+        Ur();
+        Lr();
+        Ur();
+        L();
+        U();
+        Lr();
+    }
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+if(a[8][3]=='W'&&a[5][0]=='B'&&a[4][0]=='O'&&a[10][3]=='B')
+{
+    L();
+    Ur();
+    Lr();
+    U();
+    Br();
+    U();
+    U();
+    B();
+    U();
+    U();
+    Br();
+    U();
+    B();
+}
+//
+while(caseO && outer_loop <=5)
+{
+if(a[8][3]=='O'&&a[5][0]=='W')
+{
+    caseO = false;
+if(a[4][0]=='B'&&a[10][3]=='O')
+{
+    L();
+    Ur();
+    Lr();
+    U();
+    L();
+    U();
+    U();
+    Lr();
+    U();
+    L();
+    Ur();
+    Lr();
+}
+if(a[4][0]=='O'&&a[10][3]=='B')
+{
+    L();
+    U();
+    B();
+    L();
+    U();
+    Lr();
+    Ur();
+    Br();
+    Lr();
+}
+if(a[11][4]=='O'&&a[0][4]=='B')
+{
+    Br();
+    U();
+    B();
+    Ur();
+    Br();
+    U();
+    B();
+}
+if(a[3][1]=='B'&&a[1][3]=='O')
+{
+    L();
+    U();
+    Lr();
+    Ur();
+    L();
+    U();
+    Lr();
+}
+}
+U();
+outer_loop++;
+}
+outer_loop = 0;
+caseO = true;
+//
+
+while(caseO && outer_loop <=5)
+{
+if(a[8][3]=='B'&&a[9][3]=='W')
+{
+    caseO = false;
+    while(caseS&&to_avoid_infinite_loop<=5)
+    {
+if(a[4][0]=='B'&&a[10][3]=='O')
+{
+    L();
+    U();
+    Lr();
+    Ur();
+    L();
+    U();
+    U();
+    Lr();
+    Ur();
+    L();
+    U();
+    Lr();
+    caseS = false;
+}
+if(a[4][0]=='O'&&a[10][3]=='B')
+{
+    L();
+    B();
+    U();
+    L();
+    Ur();
+    Lr();
+    Br();
+    Ur();
+    Lr();
+    caseS = false;
+}
+if(a[11][4]=='O'&&a[0][4]=='B')
+{
+    Br();
+    Ur();
+    B();
+    U();
+    Br();
+    Ur();
+    B();
+    caseS = false;
+}
+if(a[3][1]=='B'&&a[1][3]=='O')
+{
+    L();
+    Ur();
+    Lr();
+    U();
+    L();
+    Ur();
+    Lr();
+    caseS = false;
+}
+U();
+to_avoid_infinite_loop++;
+}
+to_avoid_infinite_loop = 0;
+caseS =true;
+}
+outer_loop++;
+U();
+}
+
+outer_loop=0;
+caseO = true;
+}
+}
+
+public static  void ADV_OLL()
+{
+for(i=1;i<=5;i++)
+{
+if(a[3][0]=='Y'&&a[3][1]=='Y'&&a[3][2]=='Y'&&a[3][6]=='Y'&&a[3][7]=='Y'&&a[3][8]=='Y'&&a[3][4]=='Y')
+{
+    R();
+    U();
+    U();
+    R();
+    R();
+    FA();
+    R();
+    Fr();
+    U();
+    U();
+    Rr();
+    FA();
+    R();
+    Fr();
+}
+else if(a[3][0]=='Y'&&a[3][1]=='Y'&&a[3][2]=='Y'&&a[3][4]=='Y'&&a[3][5]=='Y'&&a[3][7]=='Y'&&a[11][4]=='Y'&&a[11][5]=='Y')
+{
+    FA();
+    R();
+    U();
+    Rr();
+    Ur();
+    Fr();
+    B();
+    U();
+    L();
+    Ur();
+    Lr();
+    Br(); 
+}
+else if(a[2][5]=='Y'&&a[3][1]=='Y'&&a[3][2]=='Y'&&a[3][4]=='Y'&&a[3][7]=='Y'&&a[3][8]=='Y'&&a[11][3]=='Y'&&a[11][4]=='Y')
+{
+    B();
+    U();
+    L();
+    Ur();
+    Lr();
+    Br();
+    Ur();
+    FA();
+    R();
+    U();
+    Rr();
+    Ur();
+    Fr();
+}
+else if(a[0][5]=='Y'&&a[11][4]=='Y'&&a[3][0]=='Y'&&a[3][1]=='Y'&&a[3][3]=='Y'&&a[3][4]=='Y'&&a[3][6]=='Y'&&a[3][7]=='Y')
+{
+B();
+U();
+L();
+Ur();
+Lr();
+Br();
+U();
+FA();
+R();
+U();
+Rr();
+Ur();
+Fr();
+}
+else if(a[2][4]=='Y'&&a[2][5]=='Y'&&a[1][5]=='Y'&&a[3][8]=='Y'&&a[11][4]=='Y'&&a[11][3]=='Y'&&a[4][0]=='Y'&&a[5][0]=='Y')
+{
+    Lr();
+    B();
+    B();
+    R();
+    B();
+    Rr();
+    B();
+    L();
+}
+else if(a[0][4]=='Y'&&a[0][5]=='Y'&&a[1][5]=='Y'&&a[3][6]=='Y'&&a[3][3]=='Y'&&a[3][4]=='Y'&&a[3][0]=='Y'&&a[3][1]=='Y')
+{
+    L();
+    FA();
+    FA();
+    Rr();
+    Fr();
+    R();
+    Fr();
+    Lr();
+}
+else if(a[0][4]=='Y'&&a[1][3]=='Y'&&a[2][3]=='Y'&&a[11][3]=='Y'&&a[3][5]=='Y'&&a[3][4]=='Y'&&a[3][7]=='Y'&&a[3][8]=='Y')
+{
+    L();
+    FA();
+    Rr();
+    FA();
+    R();
+    FA();
+    FA();
+    Lr();
+}
+else if(a[0][3]=='Y'&&a[1][3]=='Y'&&a[2][4]=='Y'&&a[3][3]=='Y'&&a[3][6]=='Y'&&a[3][7]=='Y'&&a[11][4]=='Y'&&a[11][5]=='Y')
+{
+Lr();
+Br();
+R();
+Br();
+Rr();
+Br();
+Br();
+L();
+}
+else if(a[1][3]=='Y'&&a[0][4]=='Y'&&a[2][5]=='Y'&&a[3][7]=='Y'&&a[11][5]=='Y'&&a[3][3]=='Y'&&a[3][0]=='Y'&&a[3][4]=='Y') 
+{
+    R();
+    U();
+    Rr();
+    Ur();
+    Rr();
+    FA();
+    R();
+    R();
+    U();
+    Rr();
+    Ur();
+    Fr();
+}
+else if(a[1][3]=='Y'&&a[2][4]=='Y'&&a[0][5]=='Y'&&a[11][3]=='Y'&&a[11][4]=='Y'&&a[3][2]=='Y'&&a[3][5]=='Y'&&a[3][7]=='Y')
+{
+    R();
+    U();
+    Rr();
+    U();
+    Rr();
+    FA();
+    R();
+    Fr();
+    R();
+    U();
+    U();
+    Rr();
+}
+else if(a[2][3]=='Y'&&a[2][4]=='Y'&&a[1][5]=='Y'&&a[3][5]=='Y'&&a[3][1]=='Y'&&a[11][3]=='Y'&&a[11][4]=='Y'&&a[3][8]=='Y')
+{
+    Lr();
+    R();
+    R();
+    B();
+    Rr();
+    B();
+    R();
+    B();
+    B();
+    Rr();
+    B();
+    Rr();
+    L();
+}
+else if(a[0][3]=='Y'&&a[0][4]=='Y'&&a[1][5]=='Y'&&a[11][5]=='Y'&&a[3][6]=='Y'&&a[3][4]=='Y'&&a[3][3]=='Y'&&a[3][1]=='Y')
+{
+    Rr();
+    L();
+    Rr();
+    Fr();
+    R();
+    Fr();
+    Rr();
+    FA();
+    FA();
+    R();
+    Fr();
+    R();
+    Lr();
+}
+else if(a[1][3]=='Y'&&a[1][5]=='Y'&&a[0][5]=='Y'&&a[11][3]=='Y'&&a[11][4]=='Y'&&a[3][2]=='Y'&&a[3][4]=='Y'&&a[3][5]=='Y')
+{
+    B();
+    U();
+    L();
+    U();
+    U();
+    Lr();
+    Ur();
+    L();
+    U();
+    Lr();
+    Br();
+}
+else if(a[1][3]=='Y'&&a[1][5]=='Y'&&a[3][4]=='Y'&&a[2][5]=='Y'&&a[11][4]=='Y'&&a[11][3]=='Y'&&a[3][0]=='Y'&&a[3][3]=='Y')
+{
+    Rr();
+    FA();
+    R();
+    U();
+    Rr();
+    Fr();
+    R();
+    FA();
+    Ur();
+    Fr();
+}
+else if(a[1][3]=='Y'&&a[1][5]=='Y'&&a[2][5]=='Y'&&a[11][3]=='Y'&&a[11][4]=='Y'&&a[3][2]=='Y'&&a[3][8]=='Y'&&a[3][4]=='Y')
+{
+    Lr();
+    Br();
+    L();
+    Rr();
+    Ur();
+    R();
+    U();
+    Lr();
+    B();
+    L();
+}
+else if(a[1][3]=='Y'&&a[1][5]=='Y'&&a[0][5]=='Y'&&a[3][0]=='Y'&&a[3][3]=='Y'&&a[3][6]=='Y'&&a[3][4]=='Y'&&a[11][4]=='Y')
+{
+  L();
+  FA();
+  Lr();
+  R();
+  U();
+  Rr();
+  Ur();
+  L();
+  Fr();
+  Lr();
+}
+else if(a[0][3]=='Y'&&a[2][5]=='Y'&&a[3][1]=='Y'&&a[11][5]=='Y'&&a[11][4]=='Y'&&a[3][2]=='Y'&&a[3][4]=='Y'&&a[3][7]=='Y')
+{
+    R();
+    Br();
+    Rr();
+    B();
+    U();
+    U();
+    B();
+    Ur();
+    L();
+    Ur();
+    Lr();
+    Br();
+}
+else if(a[0][3]=='Y'&&a[0][5]=='Y'&&a[11][4]=='Y'&&a[3][1]=='Y'&&a[3][3]=='Y'&&a[3][4]=='Y'&&a[3][5]=='Y'&&a[3][7]=='Y')
+{
+    L();
+    FA();
+    Rr();
+    FA();
+    R();
+    FA();
+    FA();
+    Lr();
+    Lr();
+    Br();
+    R();
+    Br();
+    Rr();
+    B();
+    B();
+    L();
+}
+else if(a[0][3]=='Y'&&a[11][4]=='Y'&&a[0][5]=='Y'&&a[3][1]=='Y'&&a[3][2]=='Y'&&a[3][4]=='Y'&&a[3][6]=='Y'&&a[3][7]=='Y')
+{
+  Lr();
+  R();
+  B();
+  R();
+  B();
+  Rr();
+  Br();
+  L();
+  R();
+  R();
+  FA();
+  R();
+  Fr();
+}
+else if(a[0][3]=='Y'&&a[0][5]=='Y'&&a[2][5]=='Y'&&a[2][3]=='Y'&&a[11][4]=='Y'&&a[3][4]=='Y'&&a[3][1]=='Y'&&a[3][7]=='Y')
+{
+    L();
+    FA();
+    Rr();
+    Fr();
+    L();
+    L();
+    R();
+    R();
+    B();
+    R();
+    Br();
+    Rr();
+    Br();
+    L();
+    Rr();
+}
+else if(a[0][4]=='Y'&&a[2][4]=='Y'&&a[1][5]=='Y'&&a[1][3]=='Y'&&a[11][3]=='Y'&&a[11][5]=='Y'&&a[3][3]=='Y'&&a[3][5]=='Y')
+{
+    R();
+    U();
+    U();
+    Rr();
+    Ur();
+    R();
+    U();
+    Rr();
+    Ur();
+    R();
+    Ur();
+    Rr();
+}
+else if(a[0][4]=='Y'&&a[2][4]=='Y'&&a[1][5]=='Y'&&a[1][3]=='Y'&&a[3][5]=='Y'&&a[11][5]=='Y'&&a[3][0]=='Y'&&a[3][2]=='Y')
+{
+    R();
+    U();
+    U();
+    R();
+    R();
+    Ur();
+    R();
+    R();
+    Ur();
+    R();
+    R();
+    Ur();
+    Ur();
+    R();
+}
+else if(a[1][3]=='Y'&&a[1][4]=='Y'&&a[1][5]=='Y'&&a[2][3]=='Y'&&a[2][4]=='Y'&&a[2][5]=='Y'&&a[11][3]=='Y'&&a[11][5]=='Y')
+{
+ R();
+ R();
+ Dr();
+ R();
+ U();
+ U();
+ Rr();
+ D();
+ R();
+ U();
+ U();
+ R();
+}
+else if(a[0][4]=='Y'&&a[1][4]=='Y'&&a[2][4]=='Y'&&a[0][5]=='Y'&&a[1][5]=='Y'&&a[2][5]=='Y'&&a[3][3]=='Y'&&a[11][3]=='Y')
+{
+    L();
+    FA();
+    Rr();
+    Fr();
+    Lr();
+    FA();
+    R();
+    Fr();
+}
+else if(a[0][3]=='Y'&&a[0][4]=='Y'&&a[1][5]=='Y'&&a[1][3]=='Y'&&a[2][4]=='Y'&&a[2][5]=='Y'&&a[3][3]=='Y'&&a[3][8]=='Y')
+{
+    FA();
+    Rr();
+    Fr();
+    L();
+    FA();
+    R();
+    Fr();
+    Lr();
+}
+else if(a[0][4]=='Y'&&a[0][5]=='Y'&&a[1][5]=='Y'&&a[1][3]=='Y'&&a[2][4]=='Y'&&a[3][3]=='Y'&&a[3][6]=='Y'&&a[3][0]=='Y')
+{
+    Lr();
+    Ur();
+    L();
+    Ur();
+    Lr();
+    U();
+    U();
+    L();
+}
+else if(a[2][3]=='Y'&&a[1][3]=='Y'&&a[2][4]=='Y'&&a[1][5]=='Y'&&a[0][4]=='Y'&&a[3][5]=='Y'&&a[3][8]=='Y'&&a[11][3]=='Y')
+{
+    R();
+    U();
+    Rr();
+    U();
+    R();
+    U();
+    U();
+    Rr();
+}
+else if(a[0][3]=='Y'&&a[0][4]=='Y'&&a[0][5]=='Y'&&a[3][7]=='Y'&&a[2][3]=='Y'&&a[1][3]=='Y'&&a[3][4]=='Y'&&a[2][5]=='Y')
+{
+ L();
+ FA();
+ Rr();
+ Fr();
+ Lr();
+ R();
+ U();
+ R();
+ Ur();
+ Rr();
+}
+else if(a[1][3]=='Y'&&a[0][4]=='Y'&&a[0][5]=='Y'&&a[3][5]=='Y'&&a[11][3]=='Y'&&a[3][3]=='Y'&&a[3][4]=='Y'&&a[3][7]=='Y')
+{
+    R();
+    U();
+    Rr();
+    Ur();
+    R();
+    Ur();
+    Rr();
+    Fr();
+    Ur();
+    FA();
+    R();
+    U();
+    Rr();
+}
+else if(a[0][3]=='Y'&&a[11][4]=='Y'&&a[0][5]=='Y'&&a[1][5]=='Y'&&a[2][4]=='Y'&&a[3][1]=='Y'&&a[3][2]=='Y'&&a[3][6]=='Y')
+{
+    B();
+    U();
+    L();
+    U();
+    U();
+    Lr();
+    Ur();
+    L();
+    U();
+    U();
+    Lr();
+    Ur();
+    Br();
+}
+else if(a[0][3]=='Y'&&a[1][3]=='Y'&&a[2][3]=='Y'&&a[2][4]=='Y'&&a[11][3]=='Y'&&a[11][4]=='Y'&&a[3][5]=='Y'&&a[3][7]=='Y')
+{
+    Lr();
+    Ur();
+    B();
+    U();
+    L();
+    Ur();
+    Lr();
+    Br();
+    L();
+}
+else if(a[0][5]=='Y'&&a[1][5]=='Y'&&a[2][5]=='Y'&&a[2][4]=='Y'&&a[3][1]=='Y'&&a[11][3]=='Y'&&a[11][4]=='Y'&&a[3][3]=='Y')
+{
+    R();
+    U();
+    Br();
+    Ur();
+    Rr();
+    U();
+    R();
+    B();
+    Rr();
+}
+else if(a[1][3]=='Y'&&a[1][5]=='Y'&&a[0][5]=='Y'&&a[2][5]=='Y'&&a[3][4]=='Y'&&a[3][3]=='Y'&&a[11][3]=='Y'&&a[11][4]=='Y')
+{
+    R();
+    U();
+    Rr();
+    Ur();
+    Rr();
+    FA();
+    R();
+    Fr();
+}
+else if(a[1][3]=='Y'&&a[2][3]=='Y'&&a[1][5]=='Y'&&a[2][5]=='Y'&&a[3][4]=='Y'&&a[11][4]=='Y'&&a[3][0]=='Y'&&a[3][8]=='Y')
+{
+    R();
+    U();
+    R();
+    R();
+    Ur();
+    Rr();
+    FA();
+    R();
+    U();
+    R();
+    Ur();
+    Fr();
+}
+else if(a[0][3]=='Y'&&a[2][4]=='Y'&&a[1][5]=='Y'&&a[2][5]=='Y'&&a[11][4]=='Y'&&a[3][8]=='Y'&&a[3][1]=='Y'&&a[3][3]=='Y')
+{
+    R();
+    U();
+    U();
+    R();
+    R();
+    FA();
+    R();
+    Fr();
+    R();
+    U();
+    U();
+    Rr();
+}
+else if(a[0][3]=='Y'&&a[1][3]=='Y'&&a[2][4]=='Y'&&a[2][5]=='Y'&&a[11][3]=='Y'&&a[3][3]=='Y'&&a[3][8]=='Y'&&a[3][7]=='Y')
+{
+    Rr();
+    Ur();
+    R();
+    Ur();
+    Rr();
+    U();
+    R();
+    U();
+    R();
+    Br();
+    Rr();
+    B();
+}
+else if(a[0][3]=='Y'&&a[0][4]=='Y'&&a[1][3]=='Y'&&a[2][5]=='Y'&&a[3][4]=='Y'&&a[3][3]=='Y'&&a[3][8]=='Y'&&a[3][7]=='Y')
+{
+    FA();
+    R();
+    Ur();
+    Rr();
+    Ur();
+    R();
+    U();
+    Rr();
+    Fr();
+}
+else if(a[1][3]=='Y'&&a[2][3]=='Y'&&a[0][4]=='Y'&&a[0][5]=='Y'&&a[11][3]=='Y'&&a[3][4]=='Y'&&a[3][6]=='Y'&&a[3][7]=='Y')
+{
+    R();
+    U();
+    Rr();
+    U();
+    R();
+    Ur();
+    Rr();
+    Ur();
+    Rr();
+    FA();
+    R();
+    Fr();
+}
+else if(a[1][3]=='Y'&&a[0][5]=='Y'&&a[1][5]=='Y'&&a[2][3]=='Y'&&a[3][0]=='Y'&&a[3][4]=='Y'&&a[3][5]=='Y'&&a[11][4]=='Y')
+{
+    R();
+    U();
+    Rr();
+    Fr();
+    Ur();
+    FA();
+    U();
+    R();
+    U();
+    U();
+    Rr();
+}
+else if(a[0][3]=='Y'&&a[1][3]=='Y'&&a[1][5]=='Y'&&a[2][5]=='Y'&&a[3][2]=='Y'&&a[3][4]=='Y'&&a[11][4]=='Y'&&a[11][4]=='Y')
+{
+    Rr();
+    FA();
+    R();
+    U();
+    Rr();
+    Ur();
+    Fr();
+    U();
+    R();
+}
+else if(a[0][4]=='Y'&&a[1][3]=='Y'&&a[2][3]=='Y'&&a[2][5]=='Y'&&a[11][3]=='Y'&&a[11][5]=='Y'&&a[3][4]=='Y'&&a[3][7]=='Y')
+{
+    R();
+    U();
+    Rr();
+    U();
+    R();
+    U();
+    U();
+    Rr();
+    FA();
+    R();
+    U();
+    Rr();
+    Ur();
+    Fr();
+}
+else if(a[1][3]=='Y'&&a[0][3]=='Y'&&a[2][4]=='Y'&&a[0][5]=='Y'&&a[11][4]=='Y'&&a[3][3]=='Y'&&a[3][4]=='Y'&&a[3][7]=='Y')
+{
+    Rr();
+    Ur();
+    R();
+    Ur();
+    Rr();
+    U();
+    U();
+    R();
+    FA();
+    R();
+    U();
+    Rr();
+    Ur();
+    Fr();
+}
+else if(a[0][3]=='Y'&&a[1][3]=='Y'&&a[2][3]=='Y'&&a[2][4]=='Y'&&a[11][4]=='Y'&&a[3][6]=='Y'&&a[3][8]=='Y'&&a[3][7]=='Y')
+{
+    Br();
+    Ur();
+    Rr();
+    U();
+    R();
+    B();
+}
+else if(a[3][0]=='Y'&&a[3][1]=='Y'&&a[3][2]=='Y'&&a[2][5]=='Y'&&a[11][4]=='Y'&&a[2][4]=='Y'&&a[1][5]=='Y'&&a[0][5]=='Y')
+{
+    B();
+    U();
+    L();
+    Ur();
+    Lr();
+    Br();
+}
+else if(a[1][3]=='Y'&&a[3][0]=='Y'&&a[1][5]=='Y'&&a[3][4]=='Y'&&a[11][4]=='Y'&&a[3][2]=='Y'&&a[0][5]=='Y'&&a[2][5]=='Y')
+{
+    FA();
+    R();
+    U();
+    Rr();
+    Ur();
+    Fr();
+}
+else if(a[0][3]=='Y'&&a[2][3]=='Y'&&a[0][4]=='Y'&&a[2][4]=='Y'&&a[3][6]=='Y'&&a[3][8]=='Y'&&a[3][1]=='Y'&&a[3][7]=='Y')
+{
+    Rr();
+    Ur();
+    Rr();
+    FA();
+    R();
+    Fr();
+    U();
+    R();
+}
+else if(a[0][4]=='Y'&&a[3][1]=='Y'&&a[1][5]=='Y'&&a[3][3]=='Y'&&a[11][3]=='Y'&&a[3][4]=='Y'&&a[3][6]=='Y'&&a[3][8]=='Y')
+{
+    Fr();
+    Lr();
+    Ur();
+    L();
+    U();
+    Lr();
+    Ur();
+    L();
+    U();
+    FA();
+}
+else if(a[0][4]=='Y'&&a[1][3]=='Y'&&a[3][0]=='Y'&&a[3][2]=='Y'&&a[3][4]=='Y'&&a[3][5]=='Y'&&a[3][6]=='Y'&&a[11][5]=='Y')
+{
+    FA();
+    R();
+    U();
+    Rr();
+    Ur();
+    R();
+    U();
+    Rr();
+    Ur();
+    Fr();
+}
+else if(a[1][3]=='Y'&&a[2][4]=='Y'&&a[3][3]=='Y'&&a[11][3]=='Y'&&a[11][4]=='Y'&&a[3][7]=='Y'&&a[3][6]=='Y'&&a[3][8]=='Y')
+{
+    R();
+    Br();
+    R();
+    R();
+    FA();
+    R();
+    R();
+    B();
+    R();
+    R();
+    Fr();
+    R();
+}
+else if(a[2][4]=='Y'&&a[1][5]=='Y'&&a[3][0]=='Y'&&a[3][2]=='Y'&&a[3][1]=='Y'&&a[11][5]=='Y'&&a[11][4]=='Y'&&a[3][5]=='Y')
+{
+    Lr();
+    B();
+    L();
+    L();
+    Fr();
+    Lr();
+    Lr();
+    Br();
+    L();
+    L();
+    FA();
+    Lr();
+}
+else if(a[1][3]=='Y'&&a[1][5]=='Y'&&a[3][0]=='Y'&&a[3][2]=='Y'&&a[3][4]=='Y'&&a[3][5]=='Y'&&a[11][5]=='Y'&&a[11][4]=='Y')
+{
+    B();
+    U();
+    L();
+    Ur();
+    Lr();
+    U();
+    L();
+    Ur();
+    Lr();
+    Br();
+}
+else if(a[0][4]=='Y'&&a[2][4]=='Y'&&a[3][0]=='Y'&&a[3][2]=='Y'&&a[3][1]=='Y'&&a[3][5]=='Y'&&a[3][7]=='Y'&&a[11][5]=='Y')
+{
+    Rr();
+    Fr();
+    Ur();
+    FA();
+    Ur();
+    R();
+    U();
+    Rr();
+    U();
+    R();
+}
+else if(a[11][3]=='Y'&&a[11][5]=='Y'&&a[11][4]=='Y'&&a[1][3]=='Y'&&a[2][4]=='Y'&&a[3][3]=='Y'&&a[3][5]=='Y'&&a[3][6]=='Y')
+{
+    Lr();
+    B();
+    B();
+    R();
+    B();
+    Rr();
+    Br();
+    R();
+    B();
+    Rr();
+    B();
+    L();
+}
+else if(a[1][3]=='Y'&&a[0][4]=='Y'&&a[11][3]=='Y'&&a[11][5]=='Y'&&a[3][7]=='Y'&&a[3][3]=='Y'&&a[3][5]=='Y'&&a[3][4]=='Y')
+{
+     L();
+     FA();
+     FA();
+     Rr();
+     Fr();
+     R();
+     FA();
+     Rr();
+     Fr();
+     R();
+     Fr();
+     Lr();
+    }
+else if(a[1][3]=='Y'&&a[1][5]=='Y'&&a[11][3]=='Y'&&a[11][5]=='Y'&&a[11][4]=='Y'&&a[3][3]=='Y'&&a[3][5]=='Y'&&a[3][4]=='Y')
+{ 
+    L();
+    FA();
+    FA();
+    Rr();
+    Fr();
+    Lr();
+    R();
+    R();
+    U();
+    Rr();
+    Ur();
+    L();
+    Fr();
+    Lr();
+}
+else if(a[1][3]=='Y'&&a[1][5]=='Y'&&a[11][4]=='Y'&&a[3][4]=='Y'&&a[3][0]=='Y'&&a[3][2]=='Y'&&a[3][6]=='Y'&&a[3][8]=='Y')
+{
+    Lr();
+    Br();
+    L();
+    Ur();
+    Rr();
+    U();
+    R();
+    R();
+    Lr();
+    B();
+    L();
+}
+else if(a[1][3]=='Y'&&a[0][3]=='Y'&&a[2][3]=='Y'&&a[2][5]=='Y'&&a[1][5]=='Y'&&a[0][5]=='Y'&&a[11][4]=='Y'&&a[3][4]=='Y')
+{
+    R();
+    U();
+    Rr();
+    Ur();
+    L();
+    Rr();
+    FA();
+    R();
+    Fr();
+    Lr();
+}
+U();
+}
+
+}
+public static  void placer()
+{
+
+if((a[3][2]=='W'&&a[3][3]=='G')||(a[3][3]=='W'&&a[2][3]=='G')||(a[2][3]=='W'&&a[3][2]=='G'))
+{
+    Ur();
+    return;
+}
+if((a[3][8]=='W'&&a[11][5]=='G')||(a[0][5]=='W'&&a[3][8]=='G')||(a[11][5]=='W'&&a[0][5]=='G'))
+ {
+     U();
+     return;
+    }
+if((a[11][3]=='W'&&a[3][0]=='G')||(a[3][0]=='W'&&a[0][3]=='G')||(a[0][3]=='W'&&a[11][3]=='G'))
+{
+    U();
+    U();
+    return;
+}
+if((a[6][3]=='W'&&a[5][3]=='G')||(a[5][2]=='W'&&a[6][3]=='G')||(a[5][3]=='W'&&a[5][2]=='G'))
+{
+    Lr();
+    Ur();
+    L();
+    return;
+}
+if((a[8][5]=='W'&&a[9][5]=='G')||(a[5][8]=='W'&&a[8][5]=='G')||(a[9][5]=='W'&&a[3][2]=='G'))
+{
+    B();
+    U();
+    Br();
+    return;
+}
+if((a[8][3]=='W'&&a[5][0]=='G')||(a[9][3]=='W'&&a[8][3]=='G')||(a[5][0]=='W'&&a[9][3]=='G'))
+{
+    Br();
+    Ur();
+    Ur();
+    B();
+    return;
+}
+//******************************************************************************************************************
+if((a[11][3]=='W'&&a[0][3]=='G')||(a[3][0]=='W'&&a[11][3]=='G')||(a[0][3]=='W'&&a[3][0]=='G'))
+{
+    U();
+    return;
+}
+if((a[3][5]=='W'&&a[2][5]=='G')||(a[2][5]=='W'&&a[3][6]=='G')||(a[3][6]=='W'&&a[3][5]=='G'))
+ {
+     Ur();
+     return;
+    }
+if((a[3][3]=='W'&&a[3][2]=='G')||(a[2][3]=='W'&&a[3][3]=='G')||(a[3][2]=='W'&&a[2][3]=='G'))
+{
+    U();
+    U();
+    return;
+}
+if((a[6][3]=='W'&&a[5][2]=='G')||(a[5][2]=='W'&&a[5][3]=='G')||(a[5][3]=='W'&&a[6][3]=='G'))
+{
+    Lr();
+    Ur();
+    Ur();
+    L();
+    return;
+}
+if((a[6][5]=='W'&&a[5][6]=='O')||(a[5][5]=='W'&&a[6][5]=='O')||(a[5][6]=='W'&&a[5][5]=='O'))
+{
+    Fr();
+    U();
+    FA();
+    return;
+}
+if((a[8][3]=='W'&&a[5][0]=='O')||(a[9][3]=='W'&&a[8][3]=='O')||(a[5][0]=='W'&&a[9][3]=='O'))
+{
+    Br();
+    Ur();
+    Ur();
+    B();
+    Ur();
+    return;
+}
+
+if((a[3][6]=='W'&&a[3][5]=='B')||(a[2][5]=='W'&&a[3][6]=='B')||(a[3][5]=='W'&&a[2][5]=='B'))
+{
+    U();
+    return;
+}
+if((a[11][3]=='W'&&a[0][3]=='B')||(a[3][0]=='W'&&a[11][3]=='B')||(a[0][3]=='W'&&a[3][0]=='B'))
+ {
+     Ur();
+     return;
+    }
+if((a[0][5]=='W'&&a[11][5]=='B')||(a[3][8]=='W'&&a[0][5]=='B')||(a[11][5]=='W'&&a[3][8]=='B'))
+{
+    U();
+    U();
+    return;
+}
+if((a[6][5]=='W'&&a[5][5]=='B')||(a[5][5]=='W'&&a[5][6]=='B')||(a[5][6]=='W'&&a[6][5]=='B'))
+{
+    R();
+    U();
+    Rr();
+    return;
+}
+if((a[8][3]=='W'&&a[9][3]=='B')||(a[5][0]=='W'&&a[8][3]=='B')||(a[9][3]=='W'&&a[5][0]=='B'))
+{
+    Br();
+    Ur();
+    B();
+    return;
+}
+if((a[8][5]=='W'&&a[5][8]=='B')||(a[5][8]=='W'&&a[9][5]=='B')||(a[9][5]=='W'&&a[8][5]=='B'))
+{
+    B();
+    Ur();
+    Ur();
+    Br();
+    return;
+}
+
+if((a[11][5]=='W'&&a[0][5]=='B')||(a[3][8]=='W'&&a[11][5]=='B')||(a[0][5]=='W'&&a[3][8]=='B'))
+{
+    Ur();
+    return;
+}
+if((a[2][3]=='W'&&a[3][2]=='B')||(a[3][3]=='W'&&a[2][3]=='B')||(a[3][2]=='W'&&a[3][3]=='B'))
+ {
+     U();
+     return;
+    }
+if((a[3][5]=='W'&&a[3][6]=='B')||(a[3][6]=='W'&&a[2][5]=='B')||(a[2][5]=='W'&&a[3][5]=='B'))
+{
+    U();
+    U();
+    return;
+}
+if((a[6][3]=='W'&&a[5][3]=='B')||(a[5][2]=='W'&&a[6][3]=='B')||(a[5][3]=='W'&&a[5][2]=='B'))
+{
+    Lr();
+    U();
+    L();
+    U();
+    return;
+}
+if((a[6][5]=='W'&&a[5][6]=='B')||(a[5][5]=='W'&&a[5][6]=='B')||(a[5][6]=='W'&&a[5][5]=='B'))
+{
+    R();
+    U();
+    U();
+    Rr();
+    return;
+}
+if((a[8][5]=='W'&&a[9][5]=='B')||(a[5][8]=='W'&&a[8][5]=='B')||(a[9][5]=='W'&&a[5][8]=='B'))
+{
+    B();
+    Ur();
+    Br();
+    return;
+}
+}
+
+public static   void R()
+{   
+       t=a[0][5];
+       a[0][5]=a[3][5];
+       a[3][5]=a[6][5];
+       a[6][5]=a[9][5];
+       a[9][5]=t;
+       c=a[2][5];
+       a[2][5]=a[5][5];
+       a[5][5]=a[8][5];
+       a[8][5]=a[11][5];
+       a[11][5]=c;
+       d=a[1][5];
+       a[1][5]=a[4][5];
+       a[4][5]=a[7][5];
+       a[7][5]=a[10][5];
+       a[10][5]=d;
+       b=a[3][6];
+       a[3][6]=a[5][6];
+       a[5][6]=a[5][8];
+       a[5][8]=a[3][8];
+       a[3][8]=b;
+       h=a[4][6];
+       a[4][6]=a[5][7];
+       a[5][7]=a[4][8];
+       a[4][8]=a[3][7];
+       a[3][7]=h;
+       if(v>0)
+       {
+           s=s+"R";
+        }
+       return;
+    }
+
+public static   void Rr()
+{
+   t=a[0][5];
+   a[0][5]=a[9][5];
+   a[9][5]=a[6][5];
+   a[6][5]=a[3][5];
+   a[3][5]=t;
+   c=a[1][5];
+   a[1][5]=a[10][5];
+   a[10][5]=a[7][5];
+   a[7][5]=a[4][5];
+   a[4][5]=c;
+   d=a[2][5];
+   a[2][5]=a[11][5];
+   a[11][5]=a[8][5];
+   a[8][5]=a[5][5];
+   a[5][5]=d;
+   b=a[3][6];
+   a[3][6]=a[3][8];
+   a[3][8]=a[5][8];
+   a[5][8]=a[5][6];
+   a[5][6]=b;
+   h=a[3][7];
+   a[3][7]=a[4][8];
+   a[4][8]=a[5][7];
+   a[5][7]=a[4][6];
+   a[4][6]=h;
+   if(v>0)
+       {
+           s=s+"r";
+        }
+    return;
+}
+public static  void FA()
+{
+    t=a[3][4];
+    a[3][4]=a[4][3];
+    a[4][3]=a[5][4];
+    a[5][4]=a[4][5];
+    a[4][5]=t;
+    b=a[3][5];
+    a[3][5]=a[3][3];
+    a[3][3]=a[5][3];
+    a[5][3]=a[5][5];
+    a[5][5]=b;
+    c=a[2][4];
+    a[2][4]=a[4][2];
+    a[4][2]=a[6][4];
+    a[6][4]=a[4][6];
+    a[4][6]=c;
+    d=a[2][5];
+    a[2][5]=a[3][2];
+    a[3][2]=a[6][3];
+    a[6][3]=a[5][6];
+    a[5][6]=d;
+    h=a[2][3];
+    a[2][3]=a[5][2];
+    a[5][2]=a[6][5];
+    a[6][5]=a[3][6];
+    a[3][6]=h;
+     if(v>0)
+       {
+           s=s+"F";
+        }
+            return;
+        }
+    public static  void Fr()
+    {
+        
+    t=a[3][4];
+    a[3][4]=a[4][5];
+    a[4][5]=a[5][4];
+    a[5][4]=a[4][3];
+    a[4][3]=t;
+    b=a[3][5];
+    a[3][5]=a[5][5];
+    a[5][5]=a[5][3];
+    a[5][3]=a[3][3];
+    a[3][3]=b;
+    c=a[2][4];
+    a[2][4]=a[4][6];
+    a[4][6]=a[6][4];
+    a[6][4]=a[4][2];
+    a[4][2]=c;
+    d=a[2][5];
+    a[2][5]=a[5][6];
+    a[5][6]=a[6][3];
+    a[6][3]=a[3][2];
+    a[3][2]=d;
+    h=a[2][3];
+    a[2][3]=a[3][6];
+    a[3][6]=a[6][5];
+    a[6][5]=a[5][2];
+    a[5][2]=h;
+     if(v>0)
+       {
+        s=s+"f";
+    }
+           return;
+        }
+    public static  void L()
+    {
+        t=a[0][3];
+        a[0][3]=a[9][3];
+        a[9][3]=a[6][3];
+        a[6][3]=a[3][3];
+        a[3][3]=t;
+        c=a[2][3];
+        a[2][3]=a[11][3];
+        a[11][3]=a[8][3];
+        a[8][3]=a[5][3];
+        a[5][3]=c;
+        b=a[1][3];
+        a[1][3]=a[10][3];
+        a[10][3]=a[7][3];
+        a[7][3]=a[4][3];
+        a[4][3]=b;
+        d=a[3][0];
+        a[3][0]=a[5][0];
+        a[5][0]=a[5][2];
+        a[5][2]=a[3][2];
+        a[3][2]=d;
+        h=a[3][1];
+        a[3][1]=a[4][0];
+        a[4][0]=a[5][1];
+        a[5][1]=a[4][2];
+        a[4][2]=h;
+        if(v>0)
+       {
+           s=s+"L";
+        }
+        return;
+        }
+         public static  void Lr()
+    {
+        t=a[0][3];
+        a[0][3]=a[3][3];
+        a[3][3]=a[6][3];
+        a[6][3]=a[9][3];
+        a[9][3]=t;
+        c=a[2][3];
+        a[2][3]=a[5][3];
+        a[5][3]=a[8][3];
+        a[8][3]=a[11][3];
+        a[11][3]=c;
+        b=a[1][3];
+        a[1][3]=a[4][3];
+        a[4][3]=a[7][3];
+        a[7][3]=a[10][3];
+        a[10][3]=b;
+        d=a[3][0];
+        a[3][0]=a[3][2];
+        a[3][2]=a[5][2];
+        a[5][2]=a[5][0];
+        a[5][0]=d;
+        h=a[3][1];
+        a[3][1]=a[4][2];
+        a[4][2]=a[5][1];
+        a[5][1]=a[4][0];
+        a[4][0]=h;
+        if(v>0)
+       {
+           s=s+"l";
+        }
+        return;
+        }
+        public static  void U()
+        {
+          t=a[3][0];
+          a[3][0]=a[3][3];
+          a[3][3]=a[3][6];
+          a[3][6]=a[11][5];
+          a[11][5]=t;
+          c=a[3][2];
+          a[3][2]=a[3][5];
+          a[3][5]=a[3][8];
+          a[3][8]=a[11][3];
+          a[11][3]=c;
+          b=a[3][1];
+          a[3][1]=a[3][4];
+          a[3][4]=a[3][7];
+          a[3][7]=a[11][4];
+          a[11][4]=b;
+          d=a[2][3];
+          a[2][3]=a[2][5];
+          a[2][5]=a[0][5];
+          a[0][5]=a[0][3];
+          a[0][3]=d;
+          h=a[2][4];
+          a[2][4]=a[1][5];
+          a[1][5]=a[0][4];
+          a[0][4]=a[1][3];
+          a[1][3]=h;
+        if(v>0)
+       {
+           s=s+"U";
+        }
+            return;
+     }
+     public static  void Ur()
+    {
+       t=a[3][0];
+       a[3][0]=a[11][5];
+       a[11][5]=a[3][6];
+       a[3][6]=a[3][3];
+       a[3][3]=t;
+       c=a[3][2];
+       a[3][2]=a[11][3];
+       a[11][3]=a[3][8];
+       a[3][8]=a[3][5];
+       a[3][5]=c;
+       b=a[3][1];
+       a[3][1]=a[11][4];
+       a[11][4]=a[3][7];
+       a[3][7]=a[3][4];
+       a[3][4]=b;
+       d=a[2][3];
+       a[2][3]=a[0][3];
+       a[0][3]=a[0][5];
+       a[0][5]=a[2][5];
+       a[2][5]=d;
+       h=a[2][4];
+       a[2][4]=a[1][3];
+       a[1][3]=a[0][4];
+       a[0][4]=a[1][5];
+       a[1][5]=h;
+       if(v>0)
+       {
+           s=s+"u";
+        }
+       return;
+        }
+    public static  void B()
+        {
+            b=a[0][5];
+            a[0][5]=a[5][8];
+            a[5][8]=a[8][3];
+            a[8][3]=a[3][0];
+            a[3][0]=b;
+            c=a[0][4];
+            a[0][4]=a[4][8];
+            a[4][8]=a[8][4];
+            a[8][4]=a[4][0];
+            a[4][0]=c;
+            d=a[0][3];
+            a[0][3]=a[3][8];
+            a[3][8]=a[8][5];
+            a[8][5]=a[5][0];
+            a[5][0]=d;
+            t=a[9][4];
+            a[9][4]=a[10][3];
+            a[10][3]=a[11][4];
+            a[11][4]=a[10][5];
+            a[10][5]=t;
+            h=a[9][3];
+            a[9][3]=a[11][3];
+            a[11][3]=a[11][5];
+            a[11][5]=a[9][5];
+            a[9][5]=h;
+           if(v>0)
+       {
+           s=s+"B";
+        }
+            return;
+    }
+    public static  void Br()
+    {
+            b=a[0][5];
+            a[0][5]=a[3][0];
+            a[3][0]=a[8][3];
+            a[8][3]=a[5][8];
+            a[5][8]=b;
+            c=a[0][4];
+            a[0][4]=a[4][0];
+            a[4][0]=a[8][4];
+            a[8][4]=a[4][8];
+            a[4][8]=c;
+            d=a[0][3];
+            a[0][3]=a[5][0];
+            a[5][0]=a[8][5];
+            a[8][5]=a[3][8];
+            a[3][8]=d;
+            t=a[9][4];
+            a[9][4]=a[10][5];
+            a[10][5]=a[11][4];
+            a[11][4]=a[10][3];
+            a[10][3]=t;
+            h=a[9][3];
+            a[9][3]=a[9][5];
+            a[9][5]=a[11][5];
+            a[11][5]=a[11][3];
+            a[11][3]=h;
+        if(v>0)
+       {
+           s=s+"b";
+        }
+            return;
+    }
+    public static  void D()
+    {
+       t=a[5][0];
+       a[5][0]=a[9][5];
+       a[9][5]=a[5][6];
+       a[5][6]=a[5][3];
+       a[5][3]=t;
+       c=a[5][2];
+       a[5][2]=a[9][3];
+       a[9][3]=a[5][8];
+       a[5][8]=a[5][5];
+       a[5][5]=c;
+       b=a[5][1];
+       a[5][1]=a[9][4];
+       a[9][4]=a[5][7];
+       a[5][7]=a[5][4];
+       a[5][4]=b;
+       d=a[6][3];
+       a[6][3]=a[8][3];
+       a[8][3]=a[8][5];
+       a[8][5]=a[6][5];
+       a[6][5]=d;
+       h=a[6][4];
+       a[6][4]=a[7][3];
+       a[7][3]=a[8][4];
+       a[8][4]=a[7][5];
+       a[7][5]=h;
+       if(v>0)
+       {
+           s=s+"D";
+        }
+       return;
+    }  
+    public static  void Dr()
+    {
+ t=a[5][0];
+ a[5][0]=a[5][3];
+ a[5][3]=a[5][6];
+ a[5][6]=a[9][5];
+ a[9][5]=t;
+ c=a[5][2];
+ a[5][2]=a[5][5];
+ a[5][5]=a[5][8];
+ a[5][8]=a[9][3];
+ a[9][3]=c;
+ b=a[5][1];
+ a[5][1]=a[5][4];
+ a[5][4]=a[5][7];
+ a[5][7]=a[9][4];
+ a[9][4]=b;
+ d=a[6][3];
+ a[6][3]=a[6][5];
+ a[6][5]=a[8][5];
+ a[8][5]=a[8][3];
+ a[8][3]=d;
+ h=a[6][4];
+ a[6][4]=a[7][5];
+ a[7][5]=a[8][4];
+ a[8][4]=a[7][3];
+ a[7][3]=h;
+     if(v>0)
+       {
+           s=s+"d";
+        }
+            return;
+    }  
+    public static  void RIGTH_MOVER()
+    {
+       R();
+        Ur();
+       R();
+       U();
+       R();
+       U();
+       R();
+        Ur();
+       Rr();
+        Ur();
+       R();
+       R();
+    }
+    public static  void LEFT_MOVER()
+    {
+       Lr();
+       U();
+       Lr();
+        Ur();
+       Lr();
+        Ur();
+       Lr();
+       U();
+       L();
+       U();
+       L();
+       L();
+    }           
+  public static   void SOLVE()
+    {
+        while((a[6][4]!='W')||(a[8][4]!='W')||(a[7][3]!='W')||(a[7][5]!='W')||(a[5][4]!='R')||(a[9][4]!='O')||(a[5][1]!='B'))
+        {
+         
+            
+        if(a[6][4]=='W')
+        {
+            if(a[5][4]=='O')
+            {
+               FA();
+               FA();
+               U();
+               U();
+               B();
+               B();
+               continue;
+            }
+            if(a[5][4]=='G')
+            {
+               D();
+               R();
+               Dr();
+               Rr();
+               continue;
+        }
+        if(a[5][4]=='B')
+        {
+           FA();
+           FA();
+           U();
+           L();
+           L();
+           continue;
+        }
+    }
+    
+    if(a[7][3]=='W')
+    {
+        if(a[5][1]=='R')
+        {
+           D();
+           R();
+           Dr();
+           Dr();
+           continue;
+        }
+        if(a[5][1]=='O')
+        {
+           Dr();
+           Br();
+           D();
+           B();
+           continue;
+        }
+        if(a[5][1]=='G')
+        {
+           L();
+           L();
+           U();
+           U();
+           R();
+           R();
+           continue;
+        }
+    }
+    
+    if(a[7][5]=='W')
+    {
+        if(a[5][7]=='B')
+        {
+           R();
+           R();
+           U();
+           U();
+           L();
+           L();
+           continue;
+        }
+        if(a[5][7]=='R')
+        {
+           R();
+           R();
+           U();
+           Rr();
+           FA();
+           FA();
+           continue;
+        }
+        if(a[5][7]=='O')
+        {
+           D();
+           B();
+           Dr();
+           Br();
+           continue;
+        }
+    }
+    if(a[8][4]=='W')
+    {
+        if(a[9][4]=='G')
+        {
+           Dr();
+           R();
+           D();
+           Rr();
+           continue;
+        }
+        if(a[9][4]=='R')
+        {
+           D();
+           D();
+           FA();
+           D();
+           D();
+           Fr();
+           continue;
+        }
+        if(a[9][4]=='B')
+        {
+           D();
+           L();
+           Dr();
+           Lr();
+           continue;
+        }
+    }
+    if(a[5][4]=='W')
+    {
+        if(a[6][4]=='R')
+        {
+           Fr();
+           Fr();
+            Ur();
+           Rr();
+           FA();
+           R();
+           continue;
+        }
+        if(a[6][4]=='B')
+        {
+           FA();
+           L();
+           continue;
+        }
+        if(a[6][4]=='O')
+        {
+           D();
+           Rr();
+           Dr();
+           Br();
+           continue;
+        }
+        if(a[6][4]=='G')
+        {
+           Fr();
+           Rr();
+           continue;
+        }
+    }
+    if(a[2][4]=='W')
+    {
+        if(a[3][4]=='R')
+        {
+           FA();
+           FA();
+           continue;
+        }
+        if(a[3][4]=='O')
+          {
+             U();
+             U();
+             B();
+             B();
+             continue;
+            }
+        if(a[3][4]=='G')
+          {
+              Ur();
+             R();
+             R();
+             continue;
+        }   
+        if(a[3][4]=='B')
+           {
+             U();
+             L();
+             L();
+             continue;
+            }
+                }
+    if(a[1][3]=='W')
+      {
+        if(a[3][1]=='B')
+            {
+               L();
+               L();
+               continue;
+            }
+             if(a[3][1]=='G')
+             {
+                 Ur();
+                 Ur();
+                Rr();
+                Rr();
+                continue;
+                }
+            if(a[3][1]=='R')
+            {
+             Ur();
+            FA();
+            FA();
+            continue;
+            }
+             if(a[3][1]=='O')
+             {
+                U();
+                Br();
+                Br();
+                continue;
+                }
+            }
+             if(a[0][4]=='W')
+             {
+                  if(a[11][4]=='O')
+                  {
+                     B();
+                     B();
+                     continue;
+                    }
+             if(a[11][4]=='R')
+             {
+                U();
+                U();
+                FA();
+                FA();
+                continue;
+                }
+             if(a[11][4]=='B')
+             {
+                 Ur();
+                L();
+                L();
+                continue;
+                }
+                 if(a[11][4]=='G')
+                 {
+                    U();
+                    R();
+                    R();
+                    continue;
+                    }
+                }
+                 if(a[1][5]=='W')
+                 {
+                      if(a[3][7]=='G')
+                      {
+                         R();
+                         R();
+                         continue;
+                        }
+                if(a[3][7]=='R')
+                    {
+                       U();
+                       FA();
+                       FA();
+                       continue;
+                    }
+                    if(a[3][7]=='O')
+                    {
+                        Ur();
+                       B();
+                       B();
+                       continue;
+                    }
+                    if(a[3][7]=='B')
+                    {
+                       U();
+                       U();
+                       L();
+                       L();
+                       continue;
+                    }
+        }
+                                                     
+        if(a[3][7]=='W')
+        {
+           if(a[1][5]=='R')
+           {
+              Rr();
+              FA();
+              R();
+              continue;
+            }
+             if(a[1][5]=='O')
+             {
+                R();
+                Br();
+                Rr();
+                continue;
+                }
+             if(a[1][5]=='B')
+             {
+                U();
+                Fr();
+                L();
+                FA();
+                continue;
+                }
+                 if(a[1][5]=='G')
+                 {
+                    U();
+                    Fr();
+                    Rr();
+                    Fr();
+                    continue;
+                    }
+                }
+ if(a[3][4]=='W')
+ {
+      if(a[2][4]=='R')
+      {
+         U();
+         L();
+         Fr();
+         Lr();
+         continue;
+        }
+        if(a[2][4]=='G')
+        {
+           FA();
+           Rr();
+           Fr();
+           continue;
+        }
+        if(a[2][4]=='B')
+        {
+           Fr();
+           L();
+           FA();
+           continue;
+        }
+        if(a[2][4]=='O')
+        {
+           U();
+           Lr();
+           B();
+           L();
+           continue;
+        }
+    }
+    if(a[3][1]=='W')
+    {
+        if(a[1][3]=='G')
+        {
+            Ur();
+           Fr();
+           L();
+           FA();
+           continue;
+        }
+       if(a[1][3]=='R')
+       {
+          L();
+          Fr();
+          Lr();
+          continue;
+        }
+         if(a[1][3]=='O')
+         {
+            Lr();
+            B();
+            L();
+            continue;
+            }
+        if(a[1][3]=='B')
+        {
+            Ur();
+           Fr();
+           L();
+           FA();
+           continue;
+        }
+    }
+     if(a[11][4]=='W')
+     {
+          if(a[0][4]=='O')
+          {
+             U();
+             R();
+             Br();
+             Rr();
+             continue;
+            }
+          if(a[0][4]=='R')
+          {
+             U();
+             Rr();
+             FA();
+             R();
+             continue;
+            }
+          if(a[0][4]=='G')
+          {
+             Br();
+             R();
+             B();
+             continue;
+            }
+            if(a[0][4]=='B')
+            {
+               B();
+               Lr();
+               Br();
+               continue;
+            }
+        }
+        if(a[4][5]=='W')
+        {
+            if(a[4][6]=='G')
+            {
+               Rr();
+               continue;
+            }
+            if(a[4][6]=='R')
+            {
+               R();
+               U();
+               Rr();
+               FA();
+               FA();
+               continue;
+            }
+            if(a[4][6]=='O')
+            {
+               R();
+                Ur();
+               Rr();
+               B();
+               B();
+               continue;
+            }
+            if(a[4][6]=='B')
+            {
+               FA();
+               FA();
+               L();
+               FA();
+               FA();
+               continue;
+            }
+        }
+            if(a[4][3]=='W')
+            {
+                if(a[4][2]=='B')
+                {
+                   L();
+                   continue;
+                }
+                if(a[4][2]=='R')
+                {
+                    Lr();
+                    Ur();
+                    L();
+                    FA();
+                    FA();
+                    continue;
+                }
+                if(a[4][2]=='O')
+                {
+                   Lr();
+                   U();
+                   L();
+                   B();
+                   B();
+                   continue;
+                }
+                if(a[4][2]=='G')
+                {
+                    FA();
+                    FA();
+                    Rr();
+                    FA();
+                    FA();
+                    continue;
+                }
+            }         
+           if(a[4][6]=='W')
+           {
+               if(a[4][5]=='R')
+               {
+                  FA();
+                  continue;
+                }
+                if(a[4][5]=='O')
+                {
+                   R();
+                   R();
+                   Br();
+                   R();
+                   R();
+                   continue;
+                }
+                if(a[4][5]=='G')
+                {
+                   Fr();
+                   Ur();
+                   FA();
+                   R();
+                   R();
+                   continue;
+                }
+                if(a[4][5]=='B')
+                {
+                   Fr();
+                   U();
+                   FA();
+                   L();
+                   L();
+                   continue;
+                }
+            }
+            if(a[4][2]=='W')
+            {
+                if(a[4][3]=='R')
+                {
+                   Fr();
+                   continue;
+                }
+                if(a[4][3]=='O')
+                {
+                   L();
+                   L();
+                   B();
+                   L();
+                   L();
+                   continue;
+                }
+                if(a[4][3]=='B')
+                {
+                    FA();
+                   U();
+                   Fr();
+                   L();
+                   L();
+                   continue;
+                }
+                if(a[4][3]=='G')
+                {
+                    FA();
+                    Ur();
+                   Fr();
+                   R();
+                   R();
+                   continue;
+                }
+            }
+            if(a[4][8]=='W')
+            {
+                if(a[10][5]=='O')
+                {
+                   Br();
+                   continue;
+                }
+                if(a[10][5]=='R')
+                {
+                   R();
+                   R();
+                   FA();
+                   R();
+                   R();
+                   continue;
+                }
+                if(a[10][5]=='G')
+                {
+                   B();
+                   U();
+                   Br();
+                   R();
+                   R();
+                   continue;
+                }
+                if(a[10][5]=='B')
+                {
+                   B();
+                    Ur();
+                   Br();
+                   L();
+                   L();
+                   continue;
+                }
+            }
+            if(a[4][0]=='W')
+            {
+                if(a[10][3]=='O')
+                {
+                   B();
+                   continue;
+                }
+                if(a[10][3]=='R')
+                {
+                   L();
+                   L();
+                   Fr();
+                   L();
+                   L();
+                   continue;
+                }
+                if(a[10][3]=='B')
+                {
+                   Br();
+                    Ur();
+                   B();
+                   L();
+                   L();
+                   continue;
+                }
+                if(a[10][3]=='G')
+                {
+                   Br();
+                   U();
+                   B();
+                   R();
+                   R();
+                   continue;
+                }
+            }
+            if(a[5][4]=='W')
+            {
+                if(a[6][4]=='R')
+                {
+                   Fr();
+                   R();
+                   U();
+                   Rr();
+                   FA();
+                   FA();
+                   continue;
+                }
+                if(a[6][4]=='G')
+                {
+                   Fr();
+                   Rr();
+                   continue;
+                }
+                if(a[6][4]=='B')
+                {
+                   FA();
+                   L();
+                   continue;
+                }
+                if(a[6][4]=='O')
+                {
+                   FA();
+                   FA();
+                    Ur();
+                   R();
+                   Br();
+                   Rr();
+                   continue;
+                }
+            }
+            if(a[5][7]=='W')
+            {
+                if(a[7][5]=='G')
+                {
+                   Dr();
+                   Fr();
+                   D();
+                   Rr();
+                   continue;
+                }
+                if(a[7][5]=='R')
+                {
+                   R();
+                   FA();
+                   continue;
+                }
+                if(a[7][5]=='B')
+                {
+                   Dr();
+                   FA();
+                   D();
+                   L();
+                   continue;
+                }
+                if(a[7][5]=='O')
+                {
+                   Rr();
+                   Br();
+                   continue;
+                }
+            }
+            if(a[5][1]=='W') 
+            {
+               if(a[7][3]=='B')
+                {
+                   D();
+                   FA();
+                   Dr();
+                   L();
+                   continue;
+                }
+               if(a[7][3]=='R')
+                 {
+                    Lr();
+                    Fr();
+                    continue;
+                    }
+               if(a[7][3]=='G')
+                  {
+                     D();
+                     Fr();
+                     Dr();
+                     Rr();
+                     continue;
+                    }
+               if(a[7][3]=='O')
+                     {
+                        L();
+                        B();
+                        continue;
+                        }
+                    }
+             if(a[9][4]=='W')
+             { 
+                 if(a[8][4]=='O')
+                 {
+                    D();
+                    L();
+                    Dr();
+                    B();
+                    continue;
+                    }
+                 if(a[8][4]=='B')
+                 {
+                   Br();
+                   Lr();
+                   continue;
+                }
+                 if(a[8][4]=='R')
+                 {
+                    D();
+                    Lr();
+                    Dr();
+                    Fr();
+                    continue;
+                    }
+                 if(a[8][4]=='G')
+                     {
+                        B();
+                        R();
+                        continue;
+                        }
+                        
+                    }
+                    
+                    if(a[10][3]=='W')
+                     {
+                      if(a[4][0]=='G')
+                      {
+                          L();
+                           U();
+                           U();
+                           Lr();
+                           R();
+                           R();
+                           continue;
+                        }
+                          if(a[4][0]=='O')
+                          {
+                             L();
+                           U();
+                           Lr();
+                            B();
+                           B();
+                           continue;
+                             }  
+                          if(a[4][0]=='B') 
+                           {
+                             Lr();
+                             }
+                          if(a[4][0]=='R')
+                           {
+                            L();
+                             Ur();
+                            Lr();
+                            FA();
+                            FA();
+                            continue;
+                            }
+            }
+              
+              if(a[10][5]=='W')
+              {
+                   if(a[4][8]=='O')
+                   {
+                      R();
+                      D();
+                      B();
+                      Dr();
+                      Br();
+                      Rr();
+                      continue;
+                    }
+                     if(a[4][8]=='G')
+                       {
+                          R();
+                          continue;
+                        }
+                         if(a[4][8]=='R')
+                             {
+                                B();
+                                U();
+                                Br();
+                                Rr();
+                                FA();
+                                R();
+                                continue;
+                                }
+                                 if(a[4][8]=='B')
+                       {
+                          B();
+                          B();
+                          Lr();
+                          B();
+                          B();
+                          continue;
+                           
+                        }
+                    }
+                     
+        }
+       
+  
+    }
+        //************************************************************************************END OF CROSS************************************************************************//
+      public static void SOLVE2()
+         {
+        
+        while(a[6][3]!='W'||a[6][5]!='W'||a[8][3]!='W'||a[8][5]!='W'||a[5][5]!='R'||a[5][6]!='G'||a[5][3]!='R'||a[5][2]!='B'||a[5][0]!='B'||a[5][8]!='G'||a[9][3]!='O'||a[9][5]!='O')
+          {
+if(a[3][3]=='W')
+{
+    if(a[3][2]=='B')
+    {
+       FA();
+       U();
+       Fr();
+       continue;
+    }
+    if(a[3][2]=='R')
+    {
+       U();
+       Fr();
+       U();
+       U();
+       FA();
+       continue;
+    }
+    if(a[3][2]=='O')
+    {
+       Br();
+       U();
+       B();
+       continue;
+    }
+    if(a[3][2]=='G')
+    {
+       Rr();
+       U();
+       U();
+       R();
+       continue;
+    }
+}
+if(a[3][6]=='W')
+{
+    if(a[3][5]=='R')
+    {
+       R();
+       U();
+       Rr();
+       continue;
+    }
+    if(a[3][5]=='B')
+    {
+       U();
+       FA();
+       U();
+       Fr();
+       continue;
+    }
+    if(a[3][5]=='G')
+    {
+        Ur();
+       B();
+       U();
+       Br();
+       continue;
+    }
+    if(a[3][5]=='O')
+    {
+       U();
+       U();
+       L();
+       U();
+       Lr();
+       continue;
+    }
+}
+if(a[3][0]=='W')
+{
+    if(a[11][3]=='R')
+    {
+       Fr();
+       U();
+       U();
+       FA();
+       continue;
+    }
+    if(a[11][3]=='G')
+    {
+       Rr();
+       U();
+       R();
+       continue;
+    }
+    if(a[11][3]=='B')
+    {
+       U();
+       U();
+       Lr();
+       U();
+       L();
+       continue;
+    }
+    if(a[11][3]=='O')
+    {
+        Ur();
+       Br();
+       U();
+       B();
+       continue;
+    }
+}
+    if(a[3][2]=='W')
+    {
+        if(a[3][3]=='R')
+        { 
+          U();
+          FA();
+           Ur();
+          Fr();
+          continue;
+        }
+        if(a[3][3]=='G')
+        {
+           R();
+            Ur();
+           Rr();
+           continue;
+        }
+        if(a[3][3]=='B')
+        {
+            Ur();
+            L();
+           U();
+           U();
+           Lr();
+           continue;
+        }
+        if(a[3][3]=='O')
+        {
+           B();
+           U();
+           U();
+           Br();
+           continue;
+        }
+    }
+    if(a[3][5]=='W')
+    {
+        if(a[3][6]=='G')
+        {
+           U();
+           R();
+            Ur();
+           Rr();
+           continue;
+        }
+        if(a[3][6]=='R')
+        {
+            Ur();
+           FA();
+           U();
+           U();
+           Fr();
+           continue;
+        }
+        if(a[3][6]=='O')
+        {
+           B();
+            Ur();
+           Br();
+           continue;
+        }
+        if(a[3][6]=='B')
+        {
+           L();
+           U();
+           U();
+           Lr();
+           continue;
+        }
+    }
+    if(a[3][8]=='W')
+    {
+        if(a[11][5]=='O')
+        {
+           Br();
+           R();
+           B();
+           Rr();
+           continue;
+        }
+        if(a[11][5]=='G')
+        {
+           U();
+           Rr();
+           FA();
+           R();
+           Fr();
+           continue;
+        }
+        if(a[11][5]=='R')
+        {
+           FA();
+           U();
+           U();
+           Fr();
+           continue;
+        }
+        if(a[11][5]=='B')
+        {
+           L();
+            Ur();
+           Lr();
+           continue;
+        }
+    }
+    if(a[2][3]=='W')
+    {
+        if(a[3][3]=='R')
+        {
+            Ur();
+           R();
+           U();
+           U();
+           Rr();
+            Ur();
+           R();
+           U();
+           Rr();
+
+           continue;
+        }
+        if(a[3][3]=='G')
+        {
+           U();
+           U();
+           B();
+            Ur();
+           Br();
+           U();
+           U();
+           B();
+           U();
+           Br();
+           continue;
+        }
+        if(a[3][3]=='O')
+        {
+           U();
+           Br();
+           U();
+           B();
+           U();
+           U();
+           Br();
+            Ur();
+           B();
+           continue;
+        }
+        if(a[3][3]=='B')
+        {
+           FA();
+            Ur();
+           Fr();
+           U();
+           U();
+           FA();
+           U();
+           Fr();
+           continue;
+        }
+    }
+    if(a[2][5]=='W')
+    {
+        if(a[3][5]=='R')
+        {
+           U();
+           FA();
+            Ur();
+           Fr();
+            Ur();
+            Ur();
+           FA();
+           U();
+           Fr();
+           continue;
+        }
+        if(a[3][5]=='G')
+        {
+           R();
+           U();
+           U();
+           Rr();
+            Ur();
+           R();
+           U();
+           Rr();
+           continue;
+        }
+        if(a[3][5]=='O')
+        {
+            Ur();
+           Rr();
+           U();
+           R();
+            Ur();
+           B();
+            Ur();
+           Br();
+           continue;
+        }
+        if(a[3][5]=='B')
+        {
+           U();
+           U();
+           Br();
+           U();
+           B();
+           L();
+           U();
+           U();
+           Lr();
+           continue;
+        }
+    }
+    if(a[0][3]=='W')
+    {
+        if(a[3][0]=='R')
+        {
+           U();
+           U();
+           R();
+            Ur();
+           Rr();
+           U();
+           U();
+           R();
+           U();
+           Rr();
+           continue;
+        }
+        if(a[3][0]=='B')
+        {
+            Ur();
+           Lr();
+           U();
+           U();
+           L();
+           U();
+           Lr();
+            Ur();
+           L();
+           continue;
+        }
+        if(a[3][0]=='O')
+        {
+           L();
+            Ur();
+           Lr();
+           Br();
+           U();
+           U();
+           B();
+           continue;
+         }
+         if(a[3][0]=='G')
+         {
+            U();
+            Rr();
+            U();
+            R();
+             Ur();
+            B();
+             Ur();
+            Br();
+            continue;
+         }
+     }
+     if(a[0][5]=='W')
+     {
+         if(a[3][8]=='B')
+         {
+             Ur();
+            L();
+             Ur();
+            Lr();
+            Br();
+            U();
+            U();
+            B();
+            continue;
+         }
+         if(a[3][8]=='G')
+         {
+            U();
+            R();
+             Ur();
+            Rr();
+            U();
+            U();
+            R();
+            U();
+            Rr();
+            continue;
+         }
+         if(a[3][8]=='R')
+         {
+            U();
+            U();
+            FA();
+             Ur();
+            Fr();
+            Lr();
+            U();
+            U();
+            L();
+            continue;
+         }
+         if(a[3][8]=='O')
+         {
+            Rr();
+            U();
+            R();
+            B();
+            U();
+            U();
+            Br();
+            continue;
+         }
+     }
+     if(a[6][5]=='W')
+     {
+         if(a[5][5]=='B')
+         {
+            R();
+            U();
+            Rr();
+            Fr();
+            L();
+            FA();
+            Lr();
+            continue;
+         }
+         if(a[5][5]=='O')
+         {
+            R();
+            U();
+            Rr();
+             Ur();
+            L();
+            U();
+            U();
+            Lr();
+            continue;
+         }
+         if(a[5][5]=='G')
+         {
+            R();
+            U();
+            Rr();
+            B();
+            U();
+            U();
+            Br();
+            continue;
+         }
+     } 
+     
+     if(a[6][3]=='W')
+     {
+         if(a[5][3]=='G')
+         {
+            Lr();
+             Ur();
+            L();
+            R();
+            U();
+            Rr();
+            continue;
+         }
+         if(a[5][3]=='B')
+         {
+            Lr();
+             Ur();
+            L();
+            Br();
+            U();
+            U();
+            B();
+            continue;
+         }
+         if(a[5][3]=='O')
+         {
+            Lr();
+             Ur();
+            L();
+            U();
+            Rr();
+            U();
+            U();
+            R();
+            continue;
+         }
+     }
+     
+     if(a[8][5]=='W')
+     {
+         if(a[5][8]=='R')
+         {
+            B();
+            U();
+            Br();
+            U();
+            R();
+             Ur();
+            Rr();
+            continue;
+         }
+         if(a[5][8]=='O')
+         {
+            B();
+            U();
+            Br();
+            L();
+            U();
+            U();
+            Lr();
+            continue;
+         }
+         if(a[5][8]=='B')
+         {
+            B();
+            U();
+            Br();
+             Ur();
+            FA();
+            U();
+            U();
+            Fr();
+            continue;
+         }
+     }
+     if(a[8][3]=='W')
+     {
+         if(a[5][0]=='R')
+         {
+           Br();
+            Ur();
+           B();
+           L();
+           Fr();
+           Lr();
+           FA();
+           continue;
+        }
+        if(a[5][0]=='O')
+        {
+           Br();
+            Ur();
+           B();
+           Rr();
+           U();
+           U();
+           R();
+           continue;
+        }
+        if(a[5][0]=='G')
+        {
+           Br();
+            Ur();
+           B();
+           U();
+           Fr();
+           U();
+           U();
+           FA();
+           continue;
+        }
+    }
+    if(a[5][6]=='W')
+    {
+        if(a[5][5]=='G')
+        {
+           R();
+           U();
+           Rr();
+           U();
+           Fr();
+           U();
+           U();
+           FA();
+           continue;
+        }
+        if(a[5][5]=='R')
+        {
+           R();
+           Lr();
+           U();
+           L();
+           Rr();
+           continue;
+        }
+        if(a[5][5]=='O')
+        {
+           R();
+           U();
+           R();
+           R();
+           U();
+           U();
+           R();
+           continue;
+        }
+        if(a[5][5]=='B')
+        {
+           R();
+           U();
+           Rr();
+           Br();
+           U();
+           B();
+           continue;
+        }
+    }
+    if(a[9][5]=='W')
+    {
+        if(a[5][8]=='O')
+        {
+           B();
+           U();
+           Br();
+           U();
+           Rr();
+           U();
+           U();
+           R();
+           continue;
+        }
+        if(a[5][8]=='G')
+        {
+           B();
+           Fr();
+           U();
+           FA();
+           Br();
+           continue;
+        }
+        if(a[5][8]=='B')
+        {
+           B();
+           U();
+           Br();
+           Br();
+           U();
+           U();
+           B();
+           continue;
+        }
+        if(a[5][8]=='R')
+        {
+           B();
+           U();
+           Br();
+           Lr();
+           U();
+           L();
+           continue;
+        }
+        
+    }
+    if(a[5][0]=='W')
+    {
+        if(a[9][3]=='R')
+        {
+           L();
+           U();
+           L();
+           L();
+           U();
+           U();
+           L();
+           continue;
+        }
+        if(a[9][3]=='B')
+        {
+           L();
+           U();
+           Lr();
+           U();
+           Br();
+           U();
+           U();
+           B();
+           continue;
+        }
+         if(a[9][3]=='O')
+         {
+            L();
+            Rr();
+            U();
+            R();
+            Lr();
+            continue;
+         }
+         if(a[9][3]=='G')
+         {
+            L();
+            Fr();
+            U();
+            U();
+            FA();
+            Lr();
+            continue;
+         }
+    }
+    if(a[5][5]=='W')
+    {
+        if(a[5][6]=='R')
+        {
+           Fr();
+            Ur();
+           FA();
+            Ur();
+           R();
+           U();
+           U();
+           Rr();
+           continue;
+        }
+        if(a[5][6]=='G')
+        {
+           Fr();
+           B();
+            Ur();
+           Br();
+           FA();
+           continue;
+        }
+        if(a[5][6]=='B')
+        {
+           Fr();
+            Ur();
+           FA();
+           FA();
+           U();
+           U();
+           Fr();
+           continue;
+        }
+        if(a[5][6]=='O')
+        {
+           Fr();
+           U();
+           U();
+           FA();
+           Br();
+            Ur();
+           B();
+           continue;
+        }
+    }
+    if(a[5][8]=='W')
+    {
+        if(a[9][5]=='G')
+        {
+           Rr();
+            Ur();
+           R();
+            Ur();
+           B();
+            Ur();
+            Ur();
+           Br();
+           continue;
+        }
+        if(a[9][5]=='R')
+        {
+           Rr();
+            Ur();
+           R();
+            Ur();
+           R();
+            Ur();
+           Rr();
+           continue;
+        }
+        if(a[9][5]=='B')
+        {
+           Rr();
+            Ur();
+           R();
+           FA();
+            Ur();
+           Fr();
+           continue;
+        }
+        if(a[9][5]=='O')
+        {
+           Rr();
+           L();
+            Ur();
+           R();
+           Lr();
+           continue;
+        }
+    }
+    
+    if(a[5][3]=='W')//20
+    {
+        if(a[5][2]=='R')
+        {
+           FA();
+           U();
+           Fr();
+            Ur();
+           FA();
+           U();
+           Fr();
+           continue;
+        }
+        if(a[5][2]=='O')
+        {
+           FA();
+           U();
+           Fr();
+           U();
+           B();
+           U();
+           Br();
+           continue;
+        }
+        if(a[5][2]=='G')
+        {
+           FA();
+           U();
+           Fr();
+            Ur();
+            Ur();
+           R();
+           U();
+           Rr();
+           continue;
+        }
+        if(a[5][2]=='B')
+        {
+           FA();
+           Br();
+           U();
+           B();
+           Fr();
+           continue;
+        }
+    }
+    if(a[5][2]=='W')//21
+    {
+        if(a[5][3]=='R')
+        {
+           Lr();
+           R();
+            Ur();
+           L();
+           Rr();
+           continue;
+        }
+        if(a[5][3]=='O')
+        {
+           Lr();
+            Ur();
+           L();
+           L();
+           U();
+           U();
+           Lr();
+           continue;
+        }
+        if(a[5][3]=='G')
+        {
+           Lr();
+            Ur();
+           L();
+           B();
+            Ur();
+           Br();
+           continue;
+        }
+        if(a[5][3]=='B')
+        {
+           Lr();
+            Ur();
+           L();
+           U();
+           Lr();
+            Ur();
+           L();
+           continue;
+        }
+    }
+     if(a[9][3]=='W')//23
+     {
+         if(a[8][3]=='B')
+         {
+            Br();
+             Ur();
+            B();
+             Ur();
+            L();
+            U();
+            U();
+            Lr();
+            continue;
+            }
+            if(a[8][3]=='O')
+            {
+           Br();
+            Ur();
+           B();
+           B();
+           U();
+           U();
+           Br();
+           continue;
+        }
+        if(a[8][3]=='R')
+        {
+           Br();
+           FA();
+            Ur();
+           Fr();
+           B();
+           continue;
+        }
+        if(a[8][3]=='G')
+        {
+           Br();
+           R();
+           U();
+           U();
+           Rr();
+           B();
+           continue;
+        }
+    }
+    if(a[11][3]=='W')//24
+    {
+        if(a[3][0]=='B')
+        {
+           Br();
+            Ur();
+           B();
+           continue;
+        }
+        if(a[3][0]=='O')
+        {
+            Ur();
+           B();
+           U();
+           U();
+           Br();
+           continue;
+        }
+        if(a[3][0]=='R')
+        {
+           FA();
+            Ur();
+           Fr();
+           continue;
+        }
+        if(a[3][0]=='G')
+        {
+       R();
+       U();
+       U();
+       Rr();
+       continue;
+    }
+}
+         if(a[11][5]=='W')//25
+         {
+             if(a[3][8]=='G')
+             {
+                 Ur();
+                Rr();
+                U();
+                R();
+                continue;
+                }
+             if(a[3][8]=='O')
+             {
+                U();
+                Br();
+                U();
+                U();
+                B();
+                continue;
+                }
+              if(a[3][8]=='R')
+              {
+                 Fr();
+                 U();
+                 FA();
+                 continue;
+                }
+              if(a[3][8]=='B')
+              {
+                 Lr();
+                 U();
+                 U();
+                 L();
+                 continue;
+                }
+            }
+        }
+       
+     System.out.println("FL FINISHED");
+ 
+            System.out.println(" SOLVED");
+        }
+    
+           public static void  SOLVE3()
+     {
+        while(a[4][5]!='R'||a[4][6]!='G'||a[4][3]!='R'||a[4][2]!='B'||a[4][0]!='B'||a[4][8]!='G'||a[10][3]!='O'||a[10][5]!='O')
+   {
+   if(a[3][4]=='R')
+   {
+  if(a[2][4]=='G')
+   {
+     U();
+     R();
+     U();
+     Rr();
+      Ur();
+     Fr();
+      Ur();
+     FA();
+    }
+if(a[2][4]=='B')
+{
+Ur();
+Lr();
+Ur();
+L();
+U();
+FA();
+U();
+Fr();
+}
+}
+if(a[3][4]=='G')
+{
+if(a[2][4]=='R')
+{
+Ur();
+Rr();
+Ur();
+Rr();
+Ur();
+Rr();
+U();
+R();
+U();
+R();
+}
+if(a[2][4]=='O')
+{
+Ur();
+R();
+U();
+R();
+U();
+R();
+Ur();
+Rr();
+Ur();
+Rr();
+}
+}
+if(a[3][4]=='B')
+{
+if(a[2][4]=='R')
+{
+U();    
+U();
+FA();
+U();
+Fr();
+Ur();
+Lr();
+Ur();
+L();
+}
+if(a[2][4]=='O')
+{
+Br();
+Ur();
+B();
+U();
+L();
+U();
+Lr();
+}
+}
+if(a[3][4]=='O')
+{
+if(a[2][4]=='B')
+{
+Ur();
+L();
+U();
+Lr();
+Ur();
+Br();
+Ur();
+B();
+}
+if(a[2][4]=='G')
+{
+U();
+Rr();
+Ur();
+R();
+U();
+B();
+U();
+Br();
+}
+}
+if(a[11][4]=='O')
+{
+if(a[0][4]=='B')
+{
+U();
+L();
+Ur();
+Lr();
+Ur();
+Br();
+U();
+B();
+}
+if(a[0][4]=='G')
+{
+Ur();
+Rr();
+U();
+R();
+U();
+B();
+Ur();
+Br();
+}
+}
+if(a[11][4]=='R')
+{
+if(a[0][4]=='G')
+{
+Ur();
+R();
+U();
+Rr();
+Ur();
+Fr();
+Ur();
+FA();
+}
+if(a[0][4]=='B')
+{
+U();
+Lr();
+U();
+L();
+U();
+FA();
+Ur();
+Fr();
+}
+}
+if(a[11][4]=='G')
+{
+if(a[0][4]=='R')
+{
+U();
+Rr();
+Ur();
+Rr();
+Ur();
+Rr();
+U();
+R();
+U();
+R();
+}
+if(a[0][4]=='O')
+{
+U();
+R();
+U();
+R();
+U();
+R();
+Ur();
+Rr();
+Ur();
+Rr();
+}
+}
+if(a[11][4]=='B')
+{
+if(a[0][4]=='R')
+{
+FA();
+U();
+Fr();
+Ur();
+Lr();
+Ur();
+L();
+}
+if(a[0][4]=='O')
+{
+Ur();
+Lr();
+Ur();
+Lr();
+Ur();
+Lr();
+U();
+L();
+U();
+L();
+}
+}
+if(a[3][7]=='G')
+{
+if(a[1][5]=='O')
+{
+R();
+U();
+R();
+U();
+R();
+Ur();
+Rr();
+Ur();
+Rr();
+}
+if(a[1][5]=='R')
+{
+Rr();
+Ur();
+Rr();
+Ur();
+Rr();
+U();
+R();
+U();
+R();
+}
+}
+if(a[3][7]=='R')
+{
+if(a[1][5]=='G')
+{
+U();
+U();
+R();
+U();
+Rr();
+Ur();
+Fr();
+Ur();
+FA();
+}
+if(a[1][5]=='B')
+{
+Lr();
+Ur();
+L();
+U();
+FA();
+U();
+Fr();
+}
+}
+if(a[3][7]=='B')
+{
+if(a[1][5]=='R')
+{
+Ur();
+FA();
+U();
+Fr();
+Ur();
+Lr();
+Ur();
+L();
+}
+if(a[1][5]=='O')
+{
+U();
+Br();
+Ur();
+B();
+U();
+L();
+U();
+Lr();
+}
+}
+if(a[3][7]=='O')
+{
+if(a[1][5]=='B')
+{
+L();
+U();
+Lr();
+Ur();
+Br();
+Ur();
+B();
+}
+if(a[1][5]=='G')
+{
+U();
+U();
+Rr();
+Ur();
+R();
+U();
+B();
+U();
+Br();
+}
+}
+if(a[3][1]=='B')
+{
+if(a[1][3]=='R')
+{
+L();
+U();
+L();
+U();
+L();
+Ur();
+Lr();
+Ur();
+Lr();
+}
+if(a[1][3]=='O')
+{
+Lr();
+Ur();
+Lr();
+Ur();
+Lr();
+U();
+L();
+U();
+L();
+}
+}
+if(a[3][1]=='R')
+{
+if(a[1][3]=='B')
+{
+Ur();
+Ur();
+Lr();
+Ur();
+L();
+U();
+FA();
+U();
+Fr();
+}
+if(a[1][3]=='G')
+{
+R();
+U();
+Rr();
+Ur();
+Fr();
+Ur();
+FA();
+}
+}
+if(a[3][1]=='G')
+{
+if(a[1][3]=='R')
+{
+Ur();
+Ur();
+Rr();
+Ur();
+Rr();
+Ur();
+Rr();
+U();
+R();
+U();
+R();
+}
+if(a[1][3]=='O')
+{
+U();
+U();
+R();
+U();
+R();
+U();
+R();
+Ur();
+Rr();
+Ur();
+Rr();
+}
+}
+if(a[3][1]=='O')
+{
+if(a[1][3]=='B')
+{
+U();
+U();
+L();
+U();
+Lr();
+Ur();
+Br();
+Ur();
+B();
+}
+if(a[1][3]=='G')
+{
+Rr();
+Ur();
+R();
+U();
+B();
+U();
+Br();
+}
+}
+if(((a[4][5]=='R'&&a[4][6]=='B')||(a[4][5]=='G'&&(a[4][6]=='R')||a[4][6]=='O'))||(a[4][5]=='O'&&(a[4][6]=='G'||a[4][6]=='B'))||(a[4][5]=='B'&&(a[4][6]=='R'||a[4][6]=='O')))
+{
+R();
+U();
+Rr();
+Ur();
+Fr();
+Ur();
+FA();
+continue;
+}
+if((a[4][3]=='R'&& a[4][2]=='G')||(a[4][3]=='G' && (a[4][2]=='R'||a[4][2]=='O'))||(a[4][3]=='B'&&(a[4][2]=='R'||a[4][2]=='O'))||(a[4][3]=='O'&&(a[4][2]=='B'||a[4][2]=='G')))
+{
+FA();
+U();
+Fr();
+Ur();
+Lr();
+Ur();
+L();
+continue;
+}
+if((a[4][8]=='G'&&a[10][5]=='R')||(a[4][8]=='R'&&(a[10][5]=='G'||a[10][5]=='B'))||(a[4][8]=='O'&&(a[10][5]=='G'||a[10][5]=='B'))||(a[4][8]=='B'&&(a[10][5]=='R'||a[10][5]=='G')))
+{
+B();
+U();
+Br();
+Ur();
+Rr();
+Ur();
+R();
+continue;
+}
+if((a[4][0]=='B'&&a[10][3]=='R')||(a[4][0]=='O'&&(a[10][3]=='B'||a[10][3]=='G'))||(a[4][0]=='R'&&(a[10][3]=='B'||a[10][3]=='G'))||(a[4][0]=='G'&&(a[10][3]=='R'||a[10][3]=='O')))
+{
+L();
+U();
+Lr();
+Ur();
+Br();
+Ur();
+B();
+continue;
+}
+
+}
+        
+        }
+        public static  void TOP_CROSS()
+        {
+            while(a[0][4]!='Y'||a[1][3]!='Y'||a[2][4]!='Y'||a[1][5]!='Y')
+            {
+                if(a[0][4]!='Y'&&a[1][5]!='Y'&&a[1][3]!='Y'&&a[2][4]!='Y')
+                {
+                   FA();
+                   R();
+                   U();
+                   Rr();
+                    Ur();
+                   Fr();
+                   B();
+                   U();
+                   L();
+                    Ur();
+                   Lr();
+                   Br();
+                }
+               if(a[2][4]=='Y'&&a[1][5]=='Y'&&a[1][3]!='Y')
+               {
+                  B();
+                  U();
+                  L();
+                   Ur();
+                  Lr();
+                  Br();
+                }
+                if(a[1][3]=='Y'&&a[2][4]=='Y'&&a[1][5]!='Y')
+                {
+                    Ur();
+                    continue;
+                }
+                if(a[0][4]=='Y'&&a[1][5]=='Y'&&a[1][3]!='Y')
+                {
+                   U();
+                    continue;
+                }
+                if(a[1][3]=='Y'&&a[0][4]=='Y'&&a[1][5]!='Y')
+                {
+                   U();
+                   U();
+                    continue;
+                }
+                if(a[1][3]=='Y'&&a[1][5]=='Y'&&a[0][4]!='Y')
+                {
+                   FA();
+                   R();
+                   U();
+                   Rr();
+                    Ur();
+                   Fr();
+                }
+                if(a[0][4]=='Y'&&a[2][4]=='Y'&&a[1][3]!='Y')
+                {
+                   U();
+                    continue;
+                }
+            }
+            
+        }
+        public static  void ORIENTATION()
+        {
+            while(a[2][3]!='Y'||a[2][5]!='Y'||a[0][3]!='Y'||a[0][5]!='Y')
+            {
+                if(a[0][3]!='Y'&&a[0][5]!='Y'&&a[2][3]!='Y'&&a[2][5]!='Y')
+                {
+                    if(a[3][5]=='Y'&&a[3][0]=='Y')
+                    {
+                   R();
+                   U();
+                   U();
+                   R();
+                   R();
+                   Ur();
+                   R();
+                   R();
+                   Ur();
+                   R();
+                   R();
+                   U();
+                   U();
+                   R();
+                }
+                if(a[3][6]=='Y'&&a[11][3]=='Y')
+                {
+                    Ur();
+                    continue;
+                }
+                if(a[3][3]=='Y'&&a[3][8]=='Y')
+                {
+                   U();
+                   U();
+                    continue;
+                }
+                if(a[3][2]=='Y'&&a[11][5]=='Y')
+                {
+                   U();
+                    continue;
+                }
+        
+                if(a[3][3]=='Y'&&a[11][5]=='Y')
+                {
+                   R();
+                   U();
+                   U();
+                   Rr();
+                   Lr();
+                   Ur();
+                   L();
+                   Ur();
+                   R();
+                   Ur();
+                   Rr();
+                   U();
+                   Lr();
+                   U();
+                   L();
+                }
+                if(a[3][2]=='Y'&&a[3][8]=='Y')
+                {
+                   U();
+                    continue;
+                }
+            }
+            if(a[2][5]=='Y'&&a[0][5]=='Y'&&a[0][3]!='Y'&&a[2][3]!='Y')
+            {
+                if(a[3][3]=='Y')
+                {
+                   L();
+                   FA();
+                   Rr();
+                   Fr();
+                   Lr();
+                   FA();
+                   R();
+                   Fr();
+                }
+                if(a[3][2]=='Y')
+                {
+                   R();
+                   R();
+                   D();
+                   Rr();
+                   U();
+                   U();
+                   R();
+                   Dr();
+                   Rr();
+                   U();
+                   U();
+                   Rr();
+                }
+            }
+               if(a[2][5]!='Y'&&a[0][5]=='Y'&&a[0][3]=='Y'&&a[2][3]!='Y') 
+               {
+                  U();
+                   continue;
+                }
+                if(a[2][5]!='Y'&&a[0][5]!='Y'&&a[0][3]=='Y'&&a[2][3]=='Y')
+                {
+                   U();
+                   U();
+                    continue;
+                }
+                if(a[2][5]=='Y'&&a[0][5]!='Y'&&a[0][3]!='Y'&&a[2][3]=='Y')
+                {
+                    Ur();
+                    continue;
+                }
+
+                if(a[2][5]=='Y'&&a[0][5]!='Y'&&a[0][3]=='Y'&&a[2][3]!='Y')
+                {
+                    if(a[3][3]=='Y')
+                    {
+                       FA();
+                       Rr();
+                       Fr();
+                       L();
+                       FA();
+                       R();
+                       Fr();
+                       Lr();
+                    }
+                    if(a[3][2]=='Y')
+                    {
+                       U();
+                       U();
+                        continue;
+                    }
+                }
+                if(a[2][5]!='Y'&&a[0][5]=='Y'&&a[0][3]!='Y'&&a[2][3]=='Y')
+                {
+                     if(a[3][0]=='Y')
+                     {
+                        Ur();
+                       FA();
+                       Rr();
+                       Fr();
+                       L();
+                       FA();
+                       R();
+                       Fr();
+                       Lr();
+
+                        }
+                     if(a[3][6]=='Y')
+                     {
+                         Ur();
+                         continue;
+                        }
+                    }
+                    if(a[2][3]=='Y'&&a[2][5]!='Y'&&a[0][3]!='Y'&&a[0][5]!='Y')
+                    {
+                        if(a[3][5]=='Y')
+                        {
+                           R();
+                           U();
+                           Rr();
+                           U();
+                           R();
+                           U();
+                           U();
+                           Rr();
+                        }
+                        if(a[3][6]=='Y')
+                        {
+                           L();
+                           U();
+                           U();
+                           Lr();
+                            Ur();
+                           L();
+                            Ur();
+                           Lr();
+                        }
+                    }
+                         if(a[2][5]=='Y'&&a[2][3]!='Y'&&a[0][3]!='Y'&&a[0][5]!='Y')
+                         {
+                            U();
+                             continue;
+                            }
+                         if(a[2][3]!='Y'&&a[2][5]!='Y'&&a[0][3]=='Y'&&a[0][5]!='Y')
+                         {
+                             Ur();
+                             continue;
+                            }
+                         if(a[2][3]!='Y'&&a[2][5]!='Y'&&a[0][3]!='Y'&&a[0][5]=='Y')
+                         {
+                            U();
+                            U();
+                             continue;
+                            }
+                }             
+                }
+   public static  void PERMUTATION()
+   {
+           while(a[3][0]!=a[3][2]||a[3][3]!=a[3][5]||a[11][3]!=a[11][5]||a[3][8]!=a[3][6])
+           {
+           if((a[3][3]!=a[3][5])&&(a[3][0]!=a[3][2])&&(a[3][6]!=a[3][8])&&(a[11][3]!=a[11][5]))
+           {
+                 R();
+                 Br();
+                 R();
+                 FA();
+                 FA();
+                 Rr();
+                 B();
+                 R();
+                 FA();
+                 FA();
+                 R();
+                 R();       
+            }
+            if(a[3][0]==a[3][2])
+            {
+                Ur();
+               continue;
+            }
+            if(a[3][6]==a[3][8])
+            {
+               U();
+               continue;
+            }
+            if(a[11][3]==a[11][5])
+            {
+               U();
+               U();
+               continue;
+            }
+                if(a[3][3]==a[3][5])
+                {
+                 R();
+                 Br();
+                 R();
+                 FA();
+                 FA();
+                 Rr();
+                 B();
+                 R();
+                 FA();
+                 FA();
+                 R();
+                 R();   
+                }
+                  
+            }
+        }
+ public static  void CORRECT_HEADLINES()
+    {
+        while(a[3][3]!=a[4][4])
+        {
+            if(a[3][0]=='R')
+            {
+                Ur();
+            }
+            if(a[11][3]=='R')
+            {
+               U();
+               U();
+            }
+            if(a[3][6]=='R')
+            {
+               U();
+            }
+        }
+    }
+    public static  void CORRECT_EDGES()
+    {
+        while((a[3][4]!=a[3][3])||(a[3][0]!=a[3][1]))
+        {
+            if((a[11][4]!=a[11][5])&&(a[3][1]!=a[3][2])&&(a[3][4]!=a[3][5])&&(a[3][7]!=a[3][8]))
+            {
+                LEFT_MOVER();
+            }
+            if(a[11][4]==a[11][5])
+            {
+                if(a[3][1]==a[3][3])
+                {
+                    RIGTH_MOVER();
+                }
+                else
+                LEFT_MOVER();
+            }
+            if(a[3][7]==a[3][8])
+            {
+                Ur();
+                continue;
+            }
+          if(a[3][3]==a[3][4])
+          {
+             U();
+             U();
+              continue;
+            }
+            if(a[3][0]==a[3][1])
+            {
+               U();
+                continue;
+            }
+        }
+        CORRECT_HEADLINES();
+        s=s+s1;
+                for(i=0;i<(s.length()-2);i++)
+        
+        {
+            if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)==s.charAt(i+3)))
+            i=i+3;
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='R'))
+            {
+                s2=s2+'r';
+                i=i+2;
+            }
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='L'))
+            {
+                s2=s2+'l';
+                i=i+2;
+            }
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='U'))
+            {
+                s2=s2+'u';
+                i=i+2;
+            }
+            
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='D'))
+            {
+                s2=s2+'d';
+                i=i+2;
+            }
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='F'))
+            {
+                s2=s2+'f';
+                i=i+2;
+            }
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='B'))
+            {
+                s2=s2+'b';
+                i=i+2;
+            }
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='b'))
+            {
+                s2=s2+'B';
+                i=i+2;
+            }
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='r'))
+            {
+                s2=s2+'R';
+                i=i+2;
+            }
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='l'))
+            {
+                s2=s2+'L';
+                i=i+2;
+            }
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='u'))
+            {
+                s2=s2+'U';
+                i=i+2;
+            }
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='d'))
+            {
+                s2=s2+'D';
+                i=i+2;
+            }
+            else if((s.charAt(i)==s.charAt(i+1))&&(s.charAt(i+1)==s.charAt(i+2))&&(s.charAt(i+2)=='f'))
+            {
+                s2=s2+'F';
+                i=i+2;
+            }
+            else if((s.charAt(i)=='R')&&(s.charAt(i+1)=='r'))
+            {
+             i=i+1;
+            }
+            else if((s.charAt(i)=='L')&&(s.charAt(i+1)=='l'))
+            {
+                i=i+1;
+                }
+                 else if((s.charAt(i)=='D')&&(s.charAt(i+1)=='d'))
+            {
+             i=i+1;
+            }
+          else if((s.charAt(i)=='U')&&(s.charAt(i+1)=='u'))
+            {
+             i=i+1;
+            }
+             else if((s.charAt(i)=='B')&&(s.charAt(i+1)=='b'))
+            {
+             i=i+1;
+            }
+             else if((s.charAt(i)=='F')&&(s.charAt(i+1)=='f'))
+            {
+             i=i+1;
+            }
+             else if((s.charAt(i)=='r')&&(s.charAt(i+1)=='R'))
+            {
+             i=i+1;
+            }
+             else if((s.charAt(i)=='l')&&(s.charAt(i+1)=='L'))
+            {
+             i=i+1;
+            }
+             else if((s.charAt(i)=='u')&&(s.charAt(i+1)=='U'))
+            {
+             i=i+1;
+            }
+             else if((s.charAt(i)=='d')&&(s.charAt(i+1)=='D'))
+            {
+             i=i+1;
+            }
+             else if((s.charAt(i)=='f')&&(s.charAt(i+1)=='F'))
+            {
+             i=i+1;
+            }
+             else if((s.charAt(i)=='b')&&(s.charAt(i+1)=='B'))
+            {
+             i=i+1;
+            }
+       else 
+         s2=s2+s.charAt(i);
+        }
+
+
+        for(i=0;i<s2.length();i++)
+        {
+            if(s2.charAt(i)=='r')
+            {
+                s5=s5+"R'";
+                }
+                else if(s2.charAt(i)=='l')
+            {
+                s5=s5+"L'";
+                }
+                else if(s2.charAt(i)=='f')
+            {
+                s5=s5+"F'";
+                }
+                else if(s2.charAt(i)=='d')
+            {
+                s5=s5+"D'";
+                }
+                else if(s2.charAt(i)=='u')
+            {
+                s5=s5+"U'";
+                }
+                else if(s2.charAt(i)=='b')
+            {
+                s5=s5+"B'";
+                }
+                else 
+                {
+                    s5=s5+s2.charAt(i);
+                }
+                } 
+                System.out.println(s);
+           s="";
+             s1="";
+             s2="";
+        }
+    
+    }
+
+

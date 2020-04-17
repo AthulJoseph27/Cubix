@@ -1,0 +1,161 @@
+<Button>:
+	font_size:40
+	color:0.7,0.4,0.8,1
+<MyGrid>:
+	orientation:'vertical'
+	s_c_n:s_c_n
+	Image:
+    	source: 'anders-jilden-uwbajDCODj4-unsplash.jpg'
+		size: self.texture_size
+		allow_stretch:True
+		keep_ratio:False
+	Label:
+		color:0.4,0.4,0.8,1
+		font_size:80
+		text:"CUBIX"
+	Button:
+		text:"x"
+		color:1,0,0,1
+		size_hint:0.05,0.05
+		pos_hint:{"x":0.95,"top":0.99}
+		on_press: app.stop()
+	Button:
+		id:s_c_n
+		size_hint:0.5,0.2
+		pos_hint:{"x":0,"bottom":1}
+		text:'Scan'
+		on_release: root.scan()
+	Button:
+		id:save
+		text:"Save the Scan"if save.state=="normal" else "Saving....."
+		size_hint:0.5,0.2
+		pos_hint:{"x":0.5,"bottom":1}
+		on_release:root.save()
+
+	Button:
+		text:"Delete Previous Scan"
+		size_hint:0.5,0.1
+		pos_hint:{"x":0,"y":0.2}
+		on_release: root.delp()
+	Button:
+		text:"Display"
+		size_hint:0.5,0.1
+		pos_hint:{"x":0.5,"y":0.2}
+		on_release: root.dis()
+	Button:
+		text:"Settings"
+		size_hint:0.5,0.1
+		pos_hint:{"x":0,"y":0.3}
+		on_release:app.open_settings()
+	Button:
+		text:"Display Live Feed"
+		size_hint:0.5,0.1
+		pos_hint:{"x":0.5,"y":0.3}
+		on_release: root.dis_live()
+<P_Display>:
+	orientation:'vertical'
+	center:self.parent.center
+    close5:close5
+	Button:
+		id:close5
+		text:"x"
+		color:1,0,0,1
+		size_hint:0.05,0.05
+		pos_hint:{"x":0.95,"top":0.99}
+<PL>:
+	orientation:'vertical'
+	center:self.parent.center
+	canvas:
+		Color:
+			rgba:0,0,1,1
+		Rectangle:
+			pos:900,500
+			size:100,100
+	TextInput:
+		pos_hint:{"x":0,"top":1}
+<P3>:
+	orientation:'vertical'
+	center:self.parent.center
+    close4:close4
+	Label:
+		text:"Submit Successful!"
+		pos_hint:{"x":0,"y":0.1}
+	Button:
+		id:close4
+		text:"x"
+		color:1,0,0,1
+		size_hint:0.05,0.05
+		pos_hint:{"x":0.95,"top":0.99}
+
+<P2>:
+	orientation:'vertical'
+	center:self.parent.center
+	close3:close3
+	Button:
+		id:close3
+		text:"x"
+		color:1,0,0,1
+		size_hint:0.05,0.05
+		pos_hint:{"x":0.95,"top":0.99}
+<P1>:
+	orientation:'vertical'
+	center:self.parent.center
+	close1:close1
+	Button:
+		id:close1
+		text:"x"
+		color:1,0,0,1
+		size_hint:0.05,0.05
+		pos_hint:{"x":0.95,"top":0.99}
+	Button:
+		text:"Face1"
+		size_hint:0.5,0.2
+		pos_hint:{"x":0,"y":0.61}
+		on_release: root.scan1()
+	Button:
+		text:"Face2"
+		size_hint:0.5,0.2
+		pos_hint:{"x":0.5,"y":0.61}
+		on_release: root.scan2()
+	Button:
+		text:"Face3"
+		size_hint:0.5,0.2
+		pos_hint:{"x":0,"y":0.41}
+		on_release: root.scan3()
+	Button:
+		text:"Face4"
+		size_hint:0.5,0.2
+		pos_hint:{"x":0.5,"y":0.41}
+		on_release: root.scan4()
+	Button:
+		text:"Face5"
+		size_hint:0.5,0.2
+		pos_hint:{"x":0,"y":0.21}
+		on_release: root.scan5()
+	Button:
+		text:"Face6"
+		size_hint:0.5,0.2
+		pos_hint:{"x":0.5,"y":0.21}
+		on_release: root.scan6()
+	Button:
+		id:btn
+		text:"Submit"if btn.state=="normal" else "Submitting....."
+		size_hint:0.5,0.2
+		pos_hint:{"x":0.5,"y":0.01}
+		on_release: root.submit()
+	Button:
+		text:"Display Cube"
+		size_hint:0.5,0.2
+		pos_hint:{"x":0,"y":0.01}
+		on_release: root.display()
+	
+<P>:
+	orientation:'vertical'
+	center:self.parent.center
+	close0:close0
+	Button:
+		id:close0
+		text:"x"
+		color:1,0,0,1
+		size_hint:0.05,0.05
+		pos_hint:{"x":0.95,"top":0.99}
