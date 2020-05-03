@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Cubix2</string>
+    <string name="submit">Submit</string>
+    <string name="cubix">CUBIX</string>
+    <string name="scan_the_face_again">Scan the Face Again</string>
+    <string name="scan">Scan</string>
+</resources>
