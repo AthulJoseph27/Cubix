@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #include <fstream>
 #include "Cube.h"
-// #include "timer.h"
+
 using namespace std;
 
 vector<string> sol={};
@@ -88,7 +88,6 @@ void dfs(int depth,string alg){
 
 
 int main(){
-	// Timer tim = Timer("Pfheew.....That was one heavy dfs Search.........:)");
 	sol_file.open("Phase_2_sol.txt",ios::out);
 	state_file.open("Phase_2_states.txt",ios::out);
 	dfs(0,"");	
