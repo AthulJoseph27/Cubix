@@ -1,20 +1,20 @@
 #include <bits/stdc++.h>
 #include <fstream>
 #include "Cube.h"
-
+// #include "timer.h"
 using namespace std;
 
-vector<string> sol={};
-vector<string>states={};
+unordered_set<unsigned long long>setOfStates;
 vector<char> moves = {'R','L','F','B','U','D'};
-vector<char> ind_state = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ':', ';', '<', '=', '>', '?', '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k'};
 Cube cube = Cube({{'G','G','G'},{'G','G','G'},{'G','G','G'}},{{'X','X','X'},{'X','X','X'},{'X','X','X'}},{{'G','G','G'},{'G','G','G'},{'G','G','G'}},{{'X','X','X'},{'X','X','X'},{'X','X','X'}},{{'X','X','X'},{'X','X','X'},{'X','X','X'}},{{'X','X','X'},{'X','X','X'},{'X','X','X'}});
 long cnt=0;
 fstream sol_file,state_file;
 
-string getState(){
+long long getState(){
 
-	string state = "",tmp="";
+	string state = "";
+	unsigned long long state_id=0;
+	
 	for(int i=0;i<3;i++)
         for(int j=0;j<3;j++)
         	state+=cube.up[i][j];
@@ -41,18 +41,25 @@ string getState(){
             
 
     for(int i=0;i<54;i++)
-        if(state[i]=='G')
-            tmp+=ind_state[i];
+    	if(state[i]=='G') state_id+=(pow(2,i));
+
+    
         
-    return tmp;
+    return state_id;
 
 }
 
 void execute(char m){
 	if(m == 'R') cube.r();
 	else if(m == 'L') cube.l();
-	else if(m == 'U') cube.u();
-	else if(m == 'D') cube.d();
+	else if(m == 'U'){
+		cube.u();
+		cube.u();
+	}
+	else if(m == 'D'){
+		cube.d();
+		cube.d();
+	}
 	else if(m == 'F') cube.f();
 	else cube.b();
 }
@@ -61,8 +68,14 @@ void reverse_execute(char m){
 
 	if(m == 'R') cube.R();
 	else if(m == 'L') cube.L();
-	else if(m == 'U') cube.U();
-	else if(m == 'D') cube.D();
+	else if(m == 'U'){
+		cube.U();
+		cube.U();
+	}
+	else if(m == 'D'){
+		cube.D();
+		cube.D();
+	}
 	else if(m == 'F') cube.F();
 	else cube.B();
 
@@ -71,6 +84,7 @@ void reverse_execute(char m){
 void dfs(int depth,string alg){
 	cout<<cnt++<<'\r';
 	int size = alg.size();
+	unsigned long long tmp;
 	if(depth == 10) return;
 	for(int i=0;i<6;i++){
 		if((alg.back() == 'U' && i == 4) || (alg.back() == 'D' && i == 5))
@@ -78,8 +92,12 @@ void dfs(int depth,string alg){
 		if(size == 3 && alg[size-1] == alg[size-2] && alg[size-3] == alg[size-2] && alg[size-1] == moves[i])
 			continue;
 		execute(moves[i]);
-		sol_file<<alg+moves[i]<<endl;
-		state_file<<getState()<<endl;
+		tmp = getState();
+		if(setOfStates.find(tmp) == setOfStates.end()){
+			setOfStates.insert(tmp);
+			sol_file<<alg+moves[i]<<endl;
+			state_file<<tmp<<endl;
+		}
 		dfs(depth+1,alg+moves[i]);
 		reverse_execute(moves[i]);
 	}
@@ -87,6 +105,7 @@ void dfs(int depth,string alg){
 
 
 int main(){
+	// Timer tim = Timer("Pfheew.....That was one heavy dfs Search.........:)");
 	sol_file.open("Phase_2_sol.txt",ios::out);
 	state_file.open("Phase_2_states.txt",ios::out);
 	dfs(0,"");	
