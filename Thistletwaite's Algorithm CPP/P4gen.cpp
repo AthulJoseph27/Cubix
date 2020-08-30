@@ -12,7 +12,7 @@ fstream sol_file,state_file;
 unsigned long long getState(){
 
 	string stateG="",stateO="";
-	unsigned long long state_id=0;// G+O
+	unsigned long long state_id=0;//G+O
 
 	for(int i=0;i<3;i++)
         for(int j=0;j<3;j++)
